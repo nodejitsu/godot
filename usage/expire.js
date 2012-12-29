@@ -1,12 +1,12 @@
-var orchestrion = require('../lib/orchestrion'),
-    tools = require('orchestrion-tools');
+var godot = require('../lib/godot'),
+    orchestrion = require('orchestrion');
 
 //
 // Reactor server which will email `charlie@nodejitsu.com`
 // whenever any service matching /.*\/health\/heartbeat/
 // fails to check in after 60 seconds.
 //
-orchestrion.createServer({
+godot.createServer({
   reactors: [
     orchestrion.reactor()
       .where('service', '*/health/heartbeat')
@@ -19,9 +19,9 @@ orchestrion.createServer({
 // Producer client which sends events for the service
 // `charlie/app-name/health/heartbeat` every 15 seconds.
 //
-orchestrion.createClient({
+godot.createClient({
   producers: [
-    tools.health.heartbeat('charlie/app-name')
+    orchestrion.health.heartbeat('charlie/app-name')
       .ttl(1000 * 15)
   ]
 }).open(1337);

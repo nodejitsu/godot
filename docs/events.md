@@ -1,6 +1,6 @@
-# Orchestrion : Events
+# Godot : Events
 
-Similar to [Riemann][riemann], events in Orchestrion are simply JSON sent over UDP. Each event has these optional fields:
+Similar to [Riemann][riemann], events in Godot are simply JSON sent over UDP. Each event has these optional fields:
 
 ``` js
   {

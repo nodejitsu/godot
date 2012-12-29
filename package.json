@@ -1,6 +1,6 @@
 {
-  "name": "orchestrion",
-  "description": "Orchestrion is a streaming real-time event processor written in node.js",
+  "name": "godot",
+  "description": "Godot is a streaming real-time event processor written in node.js",
   "version": "0.0.0",
   "author": "Nodejitsu Inc <info@nodejitsu.com>",
   "contributors": [
@@ -11,7 +11,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "http://github.com/indexzero/orchestrion2.git"
+    "url": "http://github.com/indexzero/godot.git"
   },
   "dependencies": {
     "async": "0.1.22",

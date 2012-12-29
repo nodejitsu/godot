@@ -1,4 +1,4 @@
-orchestrion2
+godot
 ============
 
-Orchestrion is a streaming real-time event processor similar to Riemann or Storm written in node.js
+Godot is a streaming real-time event processor similar to Riemann or Storm written in node.js
