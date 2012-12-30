@@ -8,7 +8,7 @@ var godot = require('../lib/godot'),
 //
 godot.createServer({
   reactors: [
-    orchestrion.reactor()
+    godot.reactor()
       .where('service', '*/health/heartbeat')
       .expire(1000 * 60)
       .email({ to: 'charlie@nodejitsu.com' })
