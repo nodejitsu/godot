@@ -14,15 +14,13 @@
     "url": "http://github.com/indexzero/godot.git"
   },
   "dependencies": {
-    "async": "0.1.22",
     "eventemitter2": "0.4.9",
     "eventvat": "0.2.0",
     "optimist": "0.3.4",
     "node-uuid": "1.4.0",
     "sendgrid-web": "0.0.2",
     "telenode": "0.0.3",
-    "utile": "0.1.1",
-    "winston": "0.6.1"
+    "utile": "0.1.1"
   },
   "devDependencies": {
     "vows": "0.7.0"
