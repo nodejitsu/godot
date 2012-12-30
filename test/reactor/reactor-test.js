@@ -1,5 +1,5 @@
 /*
- * expire-test.js: Tests for the Expire reactor stream.
+ * reactor-test.js: Basic tests for the reactor module.
  *
  * (C) 2012, Nodejitsu Inc.
  *
