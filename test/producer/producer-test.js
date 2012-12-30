@@ -8,6 +8,7 @@
 var assert = require('assert'),
     vows = require('vows'),
     godot = require('../../lib/godot'),
+    macros = require('../macros').producer,
     Producer = godot.producer.Producer;
 
 vows.describe('godot/producer').addBatch({
@@ -64,43 +65,8 @@ vows.describe('godot/producer').addBatch({
           assert.isObject(producer.ttlId);
           assert.isFunction(producer.ttlId.ontimeout);
         },
-        "setting invalid data-types": Object.keys(Producer.prototype.types)
-          .reduce(function (context, key) {
-            //
-            // Create a test in the `context` for each of the setters
-            // when passed an invalid value.
-            //
-            var factory = {
-              'string': function () { return 0 },
-              'number': function () { return '0' },
-              'array':  function () { return 0 }
-            }
-            
-            context[key] = function (producer) {
-              var type    = Producer.prototype.types[key],
-                  invalid = factory[type]();
-                  
-              assert.throws(function () {
-                producer[key](invalid)
-              }, 'Type mismatch: ' + key + ' must be a ' + type);
-            };
-            
-            return context;
-          }, {}),
-        "setting valid data-types": Object.keys(Producer.prototype.types)
-          .reduce(function (context, key) {
-            //
-            // Create a test in the `context` for each of the setters
-            // when passed an value. Use the existing values to avoid
-            // conflicts with later tests.
-            //
-            context[key] = function (producer) {
-              value = this.values[key];
-              assert.equal(producer[key](value), producer)
-            };
-        
-            return context;
-          }, {}),
+        "setting invalid data-types": macros.shouldThrowOnInvalidValues(),
+        "setting valid data-types": macros.shouldSetValues(),
         "should producer on the specified TTL": {
           topic: function (producer) {
             producer.once('data', this.callback.bind(null, null));

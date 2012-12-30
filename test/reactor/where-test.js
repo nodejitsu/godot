@@ -8,7 +8,7 @@
 var assert = require('assert'),
     vows = require('vows'),
     godot = require('../../lib/godot'),
-    macros = require('../macros');
+    macros = require('../macros').reactor;
 
 vows.describe('godot/reactor/where').addBatch({
   "Godot where": {
