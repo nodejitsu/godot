@@ -1,0 +1,14 @@
+[
+  {
+    "service": "charlie/app/health/ping",
+    "metric": 1
+  },
+  {
+    "service": "charlie/app/health/ping",
+    "metric": 1
+  },
+  {
+    "service": "charlie/app/health/ping",
+    "metric": 1
+  }
+]
