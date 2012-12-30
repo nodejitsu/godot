@@ -6,8 +6,7 @@
  */
 
 var fs = require('fs'),
-    path = require('path'),
-    async = require('utile').async;
+    path = require('path');
 
 //
 // Expose the root directory.
@@ -34,41 +33,8 @@ var fixtures = exports.fixtures = fs.readdirSync(dirs.fixtures)
     all[file] = require(path.join(dirs.fixtures, file));
     return all;
   }, {});
-
+  
 //
-// ### function writeFixture (stream, name)
-// #### @stream {stream.Stream} Stream to write fixture data.
-// #### @name {string} Name of the test fixture to write.
-// Writes all data in the test fixture with the specified `name`
-// to the `stream`.
+// Expose module specific helpers
 //
-exports.writeFixture = function (stream, name) {
-  fixtures[name].forEach(function (data) {
-    stream.write(data);
-  });
-
-  stream.end();
-};
-
-//
-// ### function writeFixtureTtl (stream, name, ttl)
-// #### @stream {stream.Stream} Stream to write fixture data.
-// #### @name {string} Name of the test fixture to write.
-// #### @ttl {number} Length of the TTL between events.
-// Writes all data in the test fixture with the specified `name`
-// to the `stream`.
-//
-exports.writeFixtureTtl = function (stream, name, ttl) {
-  async.forEachSeries(
-    fixtures[name],
-    function (data, next) {
-      if (stream.writable) {
-        stream.write(data);
-        setTimeout(next, ttl);
-      }
-    },
-    function () {
-      stream.end();
-    }
-  );
-};
+exports.reactor = require('./reactor');

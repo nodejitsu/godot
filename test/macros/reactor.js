@@ -6,7 +6,7 @@
  */
 
 var assert = require('assert'),
-    helpers = require('../helpers'),
+    helpers = require('../helpers').reactor,
     ReadWriteStream = require('../../lib/godot/common/read-write-stream');
 
 //
