@@ -67,7 +67,8 @@ vows.describe('godot/producer').addBatch({
           "should producer the correct event": function (_, data) {
             var values = this.values;
 
-            assert.isTrue((new Date() - this.now) >= values.ttl);
+            assert.isNumber(data.time);
+            assert.isTrue((new Date(data.time) - this.now) >= values.ttl);
             Object.keys(values).forEach(function (key) {
               assert.equal(data[key], values[key]);
             });         

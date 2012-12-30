@@ -34,7 +34,12 @@ vows.describe('godot/net/duplex').addBatch({
               .once('data', this.callback.bind(this, null));
           },
           "should emit events appropriately": function (_, data) {
-            assert.deepEqual(data, helpers.fixtures['producer-test']);
+            var fixture = helpers.fixtures['producer-test'];
+
+            assert.isNumber(data.time);
+            Object.keys(fixture).forEach(function (key) {
+              assert.deepEqual(fixture[key], data[key]);
+            });
           }
         },
         "'where-expire' reactor": {
