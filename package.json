@@ -35,6 +35,6 @@
     "node": "0.8.x"
   },
   "scripts": {
-    "test": "sudo node test/test.js"
+    "test": "vows --spec"
   }
 }
