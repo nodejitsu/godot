@@ -8,6 +8,7 @@
 var assert = require('assert'),
     vows = require('vows'),
     godot = require('../../lib/godot'),
+    helpers = require('../helpers'),
     macros = require('../macros').producer,
     Producer = godot.producer.Producer;
 
@@ -42,15 +43,7 @@ vows.describe('godot/producer').addBatch({
       "with values": {
         topic: function () {
           this.now = new Date();
-          this.values = {
-            host: '127.0.0.1',
-            service: 'godot/test',
-            state: 'test',
-            description: 'Waiting to test Godot',
-            tags: ['test', 'unit'],
-            metric: 1,
-            ttl: 100
-          };
+          this.values = helpers.fixtures['producer-test'];
           
           return godot.producer(this.values);
         },
