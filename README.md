@@ -99,5 +99,5 @@ All tests are written in [vows][vows] and can be run with [npm][npm]:
 
 [riemann]: http://aphyr.github.com/riemann/
 [stream]: http://nodejs.org/api/stream.html
-[email-options]: https://github.com/nodejitsu/tree/master/lib/godot/reactor/email.js
-[sms-options]: https://github.com/nodejitsu/tree/master/lib/godot/reactor/email.js
+[email-options]: https://github.com/nodejitsu/godot/tree/master/lib/godot/reactor/email.js
+[sms-options]: https://github.com/nodejitsu/godot/tree/master/lib/godot/reactor/email.js
