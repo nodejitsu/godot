@@ -10,13 +10,12 @@ var assert = require('assert'),
     godot = require('../../lib/godot'),
     helpers = require('../helpers'),
     macros = require('../macros').net;
-    
+
 vows.describe('godot/net/duplex').addBatch({
   "Godot duplex": {
-    "udp": macros.shouldDuplex(
-      { 
-        type: 'udp',
-        port: 1337,
+    "where & where + expire": macros.shouldDuplexBoth(
+      {
+        ttl: 200,
         reactors: [
           godot.reactor('where-expire')
             .where('service', 'godot/test')
@@ -29,19 +28,28 @@ vows.describe('godot/net/duplex').addBatch({
         ]
       },
       {
-        "after the default TTL": {
+        "'where' reactor": {
           topic: function () {
-            setTimeout(this.callback.bind(this), 200);
+            helpers.net.getStream(this.server, 'where')
+              .once('data', this.callback.bind(this, null));
           },
-          "server should have connections and reactors": function () {
-            var server = this.server;
-            assert.isObject(server.reactors);
-            assert.isObject(server.hosts);
+          "should emit events appropriately": function (_, data) {
+            assert.deepEqual(data, helpers.fixtures['producer-test']);
+          }
+        },
+        "'where-expire' reactor": {
+          topic: function () {
+            var that = this;
+
+            helpers.net.getStream(this.server, 'where-expire')
+              .once('data', function (data) {
+                that.callback(new Error('TTL expired incorrectly.'));
+              });
+
+            setTimeout(this.callback, 300);
           },
-          "client should have connection, producers, and handlers": function () {
-            var client = this.client;
-            assert.isObject(client.producers);
-            assert.isObject(client.handlers);
+          "should never expire": function (err, _) {
+            assert.isNull(err);
           }
         }
       }

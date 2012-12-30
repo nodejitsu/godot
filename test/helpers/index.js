@@ -11,7 +11,8 @@ var fs = require('fs'),
 //
 // Expose the root directory.
 //
-var testRoot = path.join(__dirname, '..');
+var testRoot = path.join(__dirname, '..'),
+    port = 10556;
 
 //
 // ### @dirs {Object}
@@ -33,8 +34,19 @@ var fixtures = exports.fixtures = fs.readdirSync(dirs.fixtures)
     all[file] = require(path.join(dirs.fixtures, file));
     return all;
   }, {});
-  
+
+//
+// ### @nextPort {number}
+// Next available port for testing.
+//
+Object.defineProperty(exports, 'nextPort', {
+  get: function () {
+    return ++port;
+  }
+});
+
 //
 // Expose module specific helpers
 //
+exports.net     = require('./net');
 exports.reactor = require('./reactor');
