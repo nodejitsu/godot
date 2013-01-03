@@ -12,9 +12,20 @@ var assert = require('assert'),
 vows.describe('godot/reactor').addBatch({
   "Godot reactor": {
     "should have the correct primiatives": function () {
-      ['aggregate', 'change', 'email', 'expire', 'forward', 'sms', 'where'].forEach(function (method) {
-        assert.isFunction(godot.reactor.Reactor.prototype[method]);
-      });
+      ['aggregate',
+       'change',
+       'email',
+       'expire',
+       'forward',
+       'rollup',
+       'sms',
+       'tagged',
+       'taggedAny',
+       'taggedAll',
+       'throttle',
+       'where'].forEach(function (method) {
+         assert.isFunction(godot.reactor.Reactor.prototype[method]);
+       });
     },
     "the register() method": {
       "when redefining a method": function () {
