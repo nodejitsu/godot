@@ -38,29 +38,15 @@ exports.shouldDuplex = function (options, nested) {
         //
         // * Create the `godot.net.Server` instance
         //
-        server: function (next) {
-          var server = godot.createServer({
-            type: options.type,
-            reactors: options.reactors
-          });
-
-          server.listen(options.port, options.host || 'localhost', function (err) {
-            return err ? next(err) : next(null, server);
-          });
-        },
+        server: async.apply(
+          helpers.net.createServer, options
+        ),
         //
         // * Create the `godot.net.Client` instance
         //
-        client: function (next) {
-          var client = godot.createClient({
-            type: options.type,
-            producers: options.producers
-          });
-
-          client.connect(options.port, options.host || 'localhost', function (err) {
-            return err ? next(err) : next(null, client);
-          })
-        }
+        client: async.apply(
+          helpers.net.createClient, options
+        )
       }, function (err, results) {
         if (err) {
           return that.callback(err);

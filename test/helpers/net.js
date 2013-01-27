@@ -5,6 +5,38 @@
  *
  */
 
+var godot = require('../../lib/godot');
+
+//
+// ### function createServer (options, callback)
+// Creates a `godot` client with the specified `options`.
+//
+exports.createClient = function (options, callback) {
+  var client = godot.createClient({
+    type: options.type,
+    producers: options.producers
+  });
+
+  client.connect(options.port, options.host || 'localhost', function (err) {
+    return err ? callback(err) : callback(null, client);
+  });
+};
+
+//
+// ### function createServer (options, callback)
+// Creates a `godot` server with the specified `options`.
+//
+exports.createServer = function (options, callback) {
+  var server = godot.createServer({
+    type: options.type,
+    reactors: options.reactors
+  });
+
+  server.listen(options.port, options.host || 'localhost', function (err) {
+    return err ? callback(err) : callback(null, server);
+  });
+};
+
 //
 // ### function getStreams (obj, name)
 // #### @obj {godot.net.Client|godot.net.Server} Object holding streams
