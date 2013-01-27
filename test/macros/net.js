@@ -8,7 +8,90 @@
 var assert = require('assert'),
     async = require('utile').async,
     helpers = require('../helpers'),
+    mocks = require('../mocks'),
     godot = require('../../lib/godot');
+
+//
+// ### function shouldSendData (options, nested)
+// #### @options {Options} Options to setup communication
+// ####   @options.type      {udp|tcp} Network protocol.
+// ####   @options.port      {number}  Port to communicate over.
+// ####   @options.producers {Array}   Set of producers to use.
+// #### @nested {Object} Vows context to use once communcation is established.
+// Starts a client test run sending data:
+//   * Establishes full-duplex communication over the specified
+//     `options.type` network protocol on `options.port`, creating
+//     the necessary mock Server and `godot.net.Client`.
+//   * Runs the specified `nested` test context.
+//
+exports.shouldSendData = function (options, nested) {
+  if (nested && nested.topic) {
+    throw new Error('Cannot have topic in top-level of nested context');
+  }
+
+  var context = {
+    topic: function () {
+      var callback = this.callback;
+
+      async.series({
+        server: async.apply(mocks.net.createServer, options),
+        client: async.apply(helpers.net.createClient, options)
+      }, function (err, results) {
+        if (err) {
+          console.log('Error creating mock server');
+          console.dir(err);
+          process.exit(1);
+        }
+
+        results.server.once('data', function (data) {
+          callback(null, data);
+        });
+      });
+    },
+    "should send data to the server": function (err, data) {
+      assert.isNull(err);
+      assert.isObject(data);
+
+      var fixture = helpers.fixtures['producer-test'];
+      Object.keys(fixture).forEach(function (key) {
+        assert.deepEqual(fixture[key], data[key]);
+      })
+    }
+  };
+
+  if (nested) {
+    Object.keys(nested).forEach(function (vow) {
+      context['after data is sent'][vow] = nested[vow];
+    });
+  }
+
+  return context;
+};
+
+//
+// ### function shouldSendDataOverBoth (options, nested)
+// #### @options {Options} Options to setup communication
+// ####   @options.producers {Array}   Set of producers to use.
+// #### @nested {Object} Vows context to use once communcation is established.
+// Does the same as `exports.shouldSendData`, but runs the test over both
+// TCP **and** UDP.
+//
+exports.shouldSendDataOverBoth = function (options, nested) {
+  return {
+    "TCP": exports.shouldSendData({
+      type: 'tcp',
+      port: helpers.nextPort,
+      host: 'localhost',
+      producers: options.producers
+    }, nested),
+    "UDP": exports.shouldSendData({
+      type: 'udp',
+      host: 'localhost',
+      port: helpers.nextPort,
+      producers: options.producers
+    }, nested)
+  };
+};
 
 //
 // ### function shouldDuplex (options, nested)
@@ -26,7 +109,7 @@ var assert = require('assert'),
 //   * Runs the specified `nested` test context.
 //
 exports.shouldDuplex = function (options, nested) {
-  if (nested.topic) {
+  if (nested && nested.topic) {
     throw new Error('Cannot have topic in top-level of nested context');
   }
 
@@ -82,9 +165,11 @@ exports.shouldDuplex = function (options, nested) {
     }
   };
 
-  Object.keys(nested).forEach(function (vow) {
-    context['after the default TTL'][vow] = nested[vow];
-  });
+  if (nested) {
+    Object.keys(nested).forEach(function (vow) {
+      context['after the default TTL'][vow] = nested[vow];
+    });
+  }
 
   return context;
 };

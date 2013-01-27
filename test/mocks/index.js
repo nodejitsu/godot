@@ -6,4 +6,5 @@
  */
 
 exports.email = require('./email');
+exports.net   = require('./net');
 exports.sms   = require('./sms');

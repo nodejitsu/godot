@@ -12,6 +12,8 @@ var godot = require('../../lib/godot');
 // Creates a `godot` client with the specified `options`.
 //
 exports.createClient = function (options, callback) {
+  options.type = options.type || 'tcp';
+
   var client = godot.createClient({
     type: options.type,
     producers: options.producers
@@ -27,6 +29,8 @@ exports.createClient = function (options, callback) {
 // Creates a `godot` server with the specified `options`.
 //
 exports.createServer = function (options, callback) {
+  options.type = options.type || 'tcp';
+
   var server = godot.createServer({
     type: options.type,
     reactors: options.reactors

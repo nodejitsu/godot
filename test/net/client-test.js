@@ -7,10 +7,15 @@
 
 var assert = require('assert'),
     vows = require('vows'),
-    godot = require('../../lib/godot');
-    
+    async = require('utile').async,
+    godot = require('../../lib/godot'),
+    helpers = require('../helpers'),
+    macros = require('../macros');
+
 vows.describe('godot/net/client').addBatch({
-  "TODO! Write this test": function () {
-    assert(false);
-  }
+  "Godot client": macros.net.shouldSendDataOverBoth({
+    producers: [
+      godot.producer(helpers.fixtures['producer-test'])
+    ]
+  })
 }).export(module);
