@@ -16,6 +16,7 @@ vows.describe('godot/reactor').addBatch({
        'email',
        'expire',
        'forward',
+       'mean',
        'rollup',
        'sms',
        'sum',
