@@ -12,21 +12,21 @@ var assert = require('assert'),
 
 vows.describe('godot/reactor/where').addBatch({
   "Godot where": {
-    "service, */health/heartbeat": macros.shouldEmitData(
+    "service, */health/heartbeat": macros.shouldEmitDataSync(
       godot
         .reactor()
         .where('service', '*/health/heartbeat'),
       'health',
       2
     ),
-    "service, /.*/heartbeat$/": macros.shouldEmitData(
+    "service, /.*/heartbeat$/": macros.shouldEmitDataSync(
       godot
         .reactor()
         .where('service', /.*\/heartbeat$/),
       'health',
       2
     ),
-    "{ service: '*/health/heartbeat' }": macros.shouldEmitData(
+    "{ service: '*/health/heartbeat' }": macros.shouldEmitDataSync(
       godot
         .reactor()
         .where({ service: '*/health/heartbeat' }),

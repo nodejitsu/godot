@@ -15,9 +15,39 @@ var assert = require('assert'),
 // #### @fixture {string} Test fixture to write data to
 // #### @length {number} Expected number of events emitted
 // Test macro for asserting that the number of events emitted
+// by the `reactor` from the test `fixture` after the specified `timeout`.
+//
+exports.shouldEmitData = function (reactor, fixture, length, timeout) {
+  return {
+    topic: function () {
+      var source = new ReadWriteStream(),
+          stream = reactor.createStream(source),
+          that = this,
+          all = [];
+
+      stream.on('data', function (data) { all.push(data) });
+      helpers.writeFixture(source, fixture);
+
+      setTimeout(function () {
+        that.callback(null, all)
+      }, timeout);
+    },
+    "should filter the appropriate events": function (err, all) {
+      assert.isNull(err);
+      assert.lengthOf(all, length);
+    }
+  };
+};
+
+//
+// ### function shouldEmitDataSync (reactor, fixture, length)
+// #### @reactor {Reactor} Reactor to assert against
+// #### @fixture {string} Test fixture to write data to
+// #### @length {number} Expected number of events emitted
+// Test macro for asserting that the number of events emitted
 // by the `reactor` from the test `fixture`.
 //
-exports.shouldEmitData = function (reactor, fixture, length) {
+exports.shouldEmitDataSync = function (reactor, fixture, length) {
   return {
     topic: function () {
       var source = new ReadWriteStream(),

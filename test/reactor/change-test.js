@@ -12,14 +12,14 @@ var assert = require('assert'),
 
 vows.describe('godot/reactor/change').addBatch({
   "Godot change": {
-    "service": macros.shouldEmitData(
+    "service": macros.shouldEmitDataSync(
       godot
         .reactor()
         .change('service'),
       'health',
       2
     ),
-    "[service]": macros.shouldEmitData(
+    "[service]": macros.shouldEmitDataSync(
       godot
         .reactor()
         .change(['service']),
