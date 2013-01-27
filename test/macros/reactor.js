@@ -32,7 +32,7 @@ exports.shouldEmitData = function (reactor, fixture, length, timeout) {
         that.callback(null, all)
       }, timeout);
     },
-    "should filter the appropriate events": function (err, all) {
+    "should emit the appropriate events": function (err, all) {
       assert.isNull(err);
       assert.lengthOf(all, length);
     }
@@ -59,7 +59,7 @@ exports.shouldEmitDataSync = function (reactor, fixture, length) {
       stream.on('end', function () { that.callback(null, all) });
       helpers.writeFixture(source, fixture);
     },
-    "should filter the appropriate events": function (err, all) {
+    "should emit the appropriate events": function (err, all) {
       assert.isNull(err);
       assert.lengthOf(all, length);
     }
@@ -87,7 +87,7 @@ exports.shouldHaveMetric = function (reactor, fixture, value) {
       stream.on('end',  function () { that.callback(null, last) });
       helpers.writeFixture(source, fixture);
     },
-    "should filter the appropriate events": function (err, last) {
+    "should have the appropriate `metric`": function (err, last) {
       assert.isNull(err);
       assert.isObject(last)
       assert.equal(last.metric, value);
