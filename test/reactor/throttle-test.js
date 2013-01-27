@@ -1,5 +1,5 @@
 /*
- * change-test.js: Tests for the Change reactor stream.
+ * throttle-test.js: Tests for the Throttle reactor stream.
  *
  * (C) 2012, Nodejitsu Inc.
  *
