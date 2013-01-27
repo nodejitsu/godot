@@ -12,13 +12,13 @@ var assert = require('assert'),
 vows.describe('godot/reactor').addBatch({
   "Godot reactor": {
     "should have the correct primiatives": function () {
-      ['aggregate',
-       'change',
+      ['change',
        'email',
        'expire',
        'forward',
        'rollup',
        'sms',
+       'sum',
        'tagged',
        'taggedAny',
        'taggedAll',

@@ -1,5 +1,5 @@
 /*
- * aggregate-test.js: Tests for the Aggregate reactor stream.
+ * sum-test.js: Tests for the Sum reactor stream.
  *
  * (C) 2012, Nodejitsu Inc.
  *
@@ -10,12 +10,12 @@ var assert = require('assert'),
     godot = require('../../lib/godot'),
     macros = require('../macros').reactor;
 
-vows.describe('godot/reactor/aggregate').addBatch({
-  "Godot aggregate": {
+vows.describe('godot/reactor/sum').addBatch({
+  "Godot sum": {
     "ping": macros.shouldHaveMetric(
       godot
         .reactor()
-        .aggregate(),
+        .sum(),
       'pings',
       3
     )
