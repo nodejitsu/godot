@@ -13,14 +13,14 @@ var assert = require('assert'),
 vows.describe('godot/reactor/expire').addBatch({
   "Godot aggregate": {
     "ttl 100ms": {
-      "sent 200ms": macros.shouldExpire(
+      "sent 200ms": macros.shouldExpireSync(
         godot
           .reactor()
           .expire(100),
         'health',
         200
       ),
-      "sent 50ms": macros.shouldNotExpire(
+      "sent 50ms": macros.shouldNotExpireSync(
         godot
           .reactor()
           .expire(100),

@@ -12,7 +12,7 @@ var assert = require('assert'),
 
 vows.describe('godot/reactor/mean').addBatch({
   "Godot mean": {
-    "ping": macros.shouldHaveMetric(
+    "ping": macros.shouldHaveMetricSync(
       godot
         .reactor()
         .mean(),

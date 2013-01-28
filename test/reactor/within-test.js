@@ -1,5 +1,5 @@
 /*
- * sum-test.js: Tests for the Sum reactor stream.
+ * within-test.js: Tests for the Within reactor stream.
  *
  * (C) 2012, Nodejitsu Inc.
  *
@@ -10,13 +10,13 @@ var assert = require('assert'),
     godot = require('../../lib/godot'),
     macros = require('../macros').reactor;
 
-vows.describe('godot/reactor/sum').addBatch({
-  "Godot sum": {
-    "ping": macros.shouldHaveMetricSync(
+vows.describe('godot/reactor/within').addBatch({
+  "Godot within": {
+    "3, 6": macros.shouldEmitDataSync(
       godot
         .reactor()
-        .sum(),
-      'pings',
+        .within(3, 6),
+      'over-under',
       3
     )
   }

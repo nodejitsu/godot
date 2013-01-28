@@ -17,7 +17,7 @@ var assert = require('assert'),
 // Test macro for asserting that the number of events emitted
 // by the `reactor` from the test `fixture` after the specified `timeout`.
 //
-exports.shouldEmitData = function (reactor, fixture, length, timeout) {
+exports.shouldEmitData = function (reactor, fixture, length, timeout, assertFn) {
   return {
     topic: function () {
       var source = new ReadWriteStream(),
@@ -35,6 +35,9 @@ exports.shouldEmitData = function (reactor, fixture, length, timeout) {
     "should emit the appropriate events": function (err, all) {
       assert.isNull(err);
       assert.lengthOf(all, length);
+      if (assertFn) {
+        assertFn(all);
+      }
     }
   };
 };
@@ -47,7 +50,7 @@ exports.shouldEmitData = function (reactor, fixture, length, timeout) {
 // Test macro for asserting that the number of events emitted
 // by the `reactor` from the test `fixture`.
 //
-exports.shouldEmitDataSync = function (reactor, fixture, length) {
+exports.shouldEmitDataSync = function (reactor, fixture, length, assertFn) {
   return {
     topic: function () {
       var source = new ReadWriteStream(),
@@ -62,12 +65,15 @@ exports.shouldEmitDataSync = function (reactor, fixture, length) {
     "should emit the appropriate events": function (err, all) {
       assert.isNull(err);
       assert.lengthOf(all, length);
+      if (assertFn) {
+        assertFn(all);
+      }
     }
   };
 };
 
 //
-// ### function shouldHaveMetric (reactor, fixture, value)
+// ### function shouldHaveMetricSync (reactor, fixture, value)
 // #### @reactor {Reactor} Reactor to assert against
 // #### @fixture {string} Test fixture to write data to
 // #### @value {number} Expected value of the metric on the last event.
@@ -75,7 +81,7 @@ exports.shouldEmitDataSync = function (reactor, fixture, length) {
 // the last event emitted from the `reactor` is `value` using
 // the test `fixture`.
 //
-exports.shouldHaveMetric = function (reactor, fixture, value) {
+exports.shouldHaveMetricSync = function (reactor, fixture, value) {
   return {
     topic: function () {
       var source = new ReadWriteStream(),
@@ -96,14 +102,14 @@ exports.shouldHaveMetric = function (reactor, fixture, value) {
 };
 
 //
-// ### function shouldExpire (reactor, fixture, ttl)
+// ### function shouldExpireSync (reactor, fixture, ttl)
 // #### @reactor {Reactor} Reactor to assert against
 // #### @fixture {string} Test fixture to write data to
 // #### @ttl {number} Time to wait between events.
 // Test macro for asserting that the specified `reactor` expires
 // after the TTL limit.
 //
-exports.shouldExpire = function (reactor, fixture, ttl) {
+exports.shouldExpireSync = function (reactor, fixture, ttl) {
   return {
     topic: function () {
       var that = this,
@@ -129,14 +135,14 @@ exports.shouldExpire = function (reactor, fixture, ttl) {
 };
 
 //
-// ### function shouldNotExpire (reactor, fixture, ttl)
+// ### function shouldNotExpireSync (reactor, fixture, ttl)
 // #### @reactor {Reactor} Reactor to assert against
 // #### @fixture {string} Test fixture to write data to
 // #### @ttl {number} Time to wait between events.
 // Test macro for asserting that the specified `reactor`
 // does not expire.
 //
-exports.shouldNotExpire = function (reactor, fixture, ttl) {
+exports.shouldNotExpireSync = function (reactor, fixture, ttl) {
   return {
     topic: function () {
       var that = this,

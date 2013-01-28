@@ -16,8 +16,10 @@ vows.describe('godot/reactor').addBatch({
        'email',
        'expire',
        'forward',
+       'map',
        'mean',
        'over',
+       'rate',
        'rollup',
        'sms',
        'sum',
@@ -25,8 +27,9 @@ vows.describe('godot/reactor').addBatch({
        'taggedAny',
        'taggedAll',
        'throttle',
+       'under',
        'where',
-       'under'].forEach(function (method) {
+       'within'].forEach(function (method) {
          assert.isFunction(godot.reactor.Reactor.prototype[method]);
        });
     },
