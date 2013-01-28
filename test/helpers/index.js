@@ -59,7 +59,10 @@ exports.timeSeries = function (event, length, duration) {
 
   return range(1, intervals).map(function (interval) {
     return Object.keys(event).reduce(function (obj, key) {
-      obj[key] = event[key];
+      obj[key] = typeof event[key] === 'function'
+        ? event[key](interval)
+        : event[key]
+
       return obj;
     }, { time: now + (interval * duration) });
   });

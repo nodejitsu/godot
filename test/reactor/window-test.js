@@ -1,5 +1,5 @@
 /*
- * over-test.js: Tests for the Over reactor stream.
+ * window-test.js: Tests for the *Window and Combine reactor streams.
  *
  * (C) 2012, Nodejitsu Inc.
  *

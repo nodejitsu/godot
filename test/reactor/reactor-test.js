@@ -20,6 +20,7 @@ vows.describe('godot/reactor').addBatch({
        'forward',
        'map',
        'mean',
+       'movingAverage',
        'over',
        'rate',
        'rollup',
