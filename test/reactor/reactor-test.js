@@ -13,7 +13,9 @@ vows.describe('godot/reactor').addBatch({
   "Godot reactor": {
     "should have the correct primiatives": function () {
       ['change',
+       'combine',
        'email',
+       'eventWindow',
        'expire',
        'forward',
        'map',
@@ -27,6 +29,7 @@ vows.describe('godot/reactor').addBatch({
        'taggedAny',
        'taggedAll',
        'throttle',
+       'timeWindow',
        'under',
        'where',
        'within'].forEach(function (method) {
