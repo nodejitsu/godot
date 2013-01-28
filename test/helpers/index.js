@@ -6,7 +6,8 @@
  */
 
 var fs = require('fs'),
-    path = require('path');
+    path = require('path'),
+    range = require('r...e');
 
 //
 // Expose the root directory.
@@ -44,6 +45,25 @@ Object.defineProperty(exports, 'nextPort', {
     return ++port;
   }
 });
+
+//
+// ### function timeSeries(event, length, duration)
+// #### @event    {Object} Base event to use for all properties except time.
+// #### @length   {number} Length of the total time interval.
+// #### @duration {number} Length of the interval between each event.
+// Returns a time series based on the specified event.
+//
+exports.timeSeries = function (event, length, duration) {
+  var intervals = Math.floor(length / duration),
+      now = +Date.now();
+
+  return range(1, intervals).map(function (interval) {
+    return Object.keys(event).reduce(function (obj, key) {
+      obj[key] = event[key];
+      return obj;
+    }, { time: now + (interval * duration) });
+  });
+};
 
 //
 // Expose module specific helpers

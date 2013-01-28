@@ -12,12 +12,16 @@ var async = require('utile').async,
 //
 // ### function writeFixture (stream, name)
 // #### @stream {stream.Stream} Stream to write fixture data.
-// #### @name {string} Name of the test fixture to write.
+// #### @fixture {string|Array} Name of the fixture (or actual fixture) to write.
 // Writes all data in the test fixture with the specified `name`
 // to the `stream`.
 //
-exports.writeFixture = function (stream, name) {
-  fixtures[name].forEach(function (data) {
+exports.writeFixture = function (stream, fixture) {
+  fixture = typeof fixture === 'string'
+    ? fixtures[fixture]
+    : fixture
+
+  fixture.forEach(function (data) {
     stream.write(data);
   });
 
