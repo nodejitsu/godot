@@ -24,6 +24,7 @@
     "window-stream": "0.2.1"
   },
   "devDependencies": {
+    "r...e": "0.2.x",
     "vows": "0.7.0"
   },
   "publishConfig": {
