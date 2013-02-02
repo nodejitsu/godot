@@ -16,7 +16,6 @@
   "dependencies": {
     "eventemitter2": "0.4.9",
     "eventvat": "0.2.0",
-    "optimist": "0.3.4",
     "node-uuid": "1.4.0",
     "sendgrid-web": "0.0.2",
     "telenode": "0.0.3",
@@ -24,6 +23,7 @@
     "window-stream": "0.2.3"
   },
   "devDependencies": {
+    "optimist": "0.3.4",
     "r...e": "0.2.x",
     "vows": "0.7.0"
   },
