@@ -60,6 +60,9 @@ exports.getStreams = function (obj, names) {
     var key = Object.keys(obj.hosts)[0];
 
     return obj.hosts[key]
+      .map(function (pair) {
+        return pair.dest;
+      })
       .filter(function (stream) {
         return !names || ~names.indexOf(stream.name);
       });
