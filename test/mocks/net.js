@@ -6,7 +6,8 @@
  */
 
 var dgram = require('dgram'),
-    net = require('net');
+    net = require('net'),
+    JsonParser = require('../../lib/godot/common').JsonParser;
 
 //
 // ### function createServer (options, callback)
@@ -38,7 +39,8 @@ exports.createServer = function (options, callback) {
   options.type = options.type || 'tcp';
 
   var responded,
-      server;
+      server,
+      parser;
 
   //
   // Helper function to respond to the callback
@@ -57,8 +59,14 @@ exports.createServer = function (options, callback) {
 
   if (options.type === 'udp') {
     server = dgram.createSocket('udp4');
+    parser = new JsonParser();
+    parser.on('data', function (data) {
+      server.emit('data', data);
+    })
+
     server.on('message', function (data) {
-      server.emit('data', JSON.parse('' + data));
+      console.log('' + data)
+      parser.write('' + data);
     });
 
     server.once('listening', respond);
@@ -68,8 +76,13 @@ exports.createServer = function (options, callback) {
   else if (options.type === 'tcp') {
     server = net.createServer();
     server.on('connection', function (socket) {
-      socket.on('data', function (data) {
-        server.emit('data', JSON.parse('' + data));
+      socket.setEncoding('utf8');
+
+      var parser = new JsonParser();
+      socket.pipe(parser);
+
+      parser.on('data', function (data) {
+        server.emit('data', data);
       });
     });
 
