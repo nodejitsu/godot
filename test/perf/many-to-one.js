@@ -28,7 +28,7 @@ async.series({
       description: "Waiting to performance test Godot",
       tags: ["test", "perf"],
       metric: 1,
-      ttl: 1
+      ttl: 0
     }
   })
 }, function (err, procs) {

@@ -33,7 +33,8 @@ exports.createServer = function (options, callback) {
 
   var server = godot.createServer({
     type: options.type,
-    reactors: options.reactors
+    reactors: options.reactors,
+    multiplex: options.multiplex
   });
 
   server.listen(options.port, options.host || 'localhost', function (err) {

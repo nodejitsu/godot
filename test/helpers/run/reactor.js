@@ -13,9 +13,10 @@ var godot = require('../../../lib/godot'),
 //
 function start(options) {
   helpers.net.createServer({
-    type: options.type,
-    port: options.port,
-    reactors: [
+    type:      options.type,
+    port:      options.port,
+    multiplex: false,
+    reactors:  [
       godot.reactor()
         .count(1000)
         .console()
