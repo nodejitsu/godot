@@ -20,7 +20,7 @@ async.series({
   producers: async.apply(helpers.run, 'producer', {
     type: 'tcp',
     port: port,
-    processes: (os.cpus().length * 2) - 1,
+    processes: os.cpus().length - 1,
     produce: {
       host: "127.0.0.1",
       service: "godot/performance",
