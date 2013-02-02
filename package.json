@@ -17,7 +17,7 @@
     "node-uuid": "1.4.0",
     "sendgrid-web": "0.0.2",
     "telenode": "0.0.3",
-    "utile": "0.1.1",
+    "utile": "0.1.7",
     "window-stream": "0.2.3"
   },
   "devDependencies": {
