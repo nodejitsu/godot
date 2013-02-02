@@ -13,6 +13,8 @@ vows.describe('godot/reactor').addBatch({
   "Godot reactor": {
     "should have the correct primiatives": function () {
       ['change',
+       'count',
+       'console',
        'combine',
        'email',
        'eventWindow',
