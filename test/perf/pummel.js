@@ -29,6 +29,12 @@ var optimist = require('optimist')
     number: true,
     default: os.cpus().length - 1
   })
+  .option('interval', {
+    description: 'sampling interval',
+    alias: 'i',
+    number: true,
+    default: 10
+  })
   .option('duration', {
     description: 'duration of the test',
     alias: 'd',
@@ -49,11 +55,12 @@ if (argv.help || argv.h) {
 
 console.log([
   'Starting performance test with:',
-  '  network protocol ' + argv.over,
-  '  concurrency:     ' + argv.c,
-  '  duration:        ' + argv.d + 's',
-  '  ttl:             ' + argv.ttl,
-  '  port:            ' + argv.port,
+  '  network protocol  ' + argv.over,
+  '  concurrency:      ' + argv.c,
+  '  sampling interval ' + argv.i + 's',
+  '  duration:         ' + argv.d + 's',
+  '  ttl:              ' + argv.ttl,
+  '  port:             ' + argv.port,
   ''
 ].join('\n'));
 
@@ -61,7 +68,7 @@ async.series({
   reactor: async.apply(helpers.run, 'reactor', {
     type: argv.over,
     port: argv.port,
-    duration: argv.duration,
+    duration: argv.interval,
     processes: 1
   }),
   producers: async.apply(helpers.run, 'producer', {
@@ -94,6 +101,7 @@ async.series({
       });
     });
 
+    console.log();
     process.exit();
-  }, (argv.duration + 2) * 1000);
+  }, (argv.duration + 1) * 1000);
 })

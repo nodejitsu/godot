@@ -18,7 +18,7 @@ function start(options) {
     multiplex: false,
     reactors:  [
       godot.reactor()
-        .count(options.duration * 1000)
+        .count((options.interval || options.duration) * 1000)
         .console(function (data) {
           console.log([
             '',
