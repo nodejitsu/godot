@@ -1,5 +1,5 @@
 /*
- * many-to-one.js: Performance test for many producers to one reactor
+ * pummel.js: Performance test pummeling a single reactor.
  *
  * (C) 2012, Nodejitsu Inc.
  *
@@ -9,18 +9,65 @@ var os = require('os'),
     async = require('utile').async,
     helpers = require('../helpers');
 
-var port = helpers.nextPort;
+var optimist = require('optimist')
+  .usage('Pummel performance tests for a single reactor')
+  .option('port', {
+    description: 'port to run test on',
+    alias: 'p',
+    number: true,
+    default: helpers.nextPort
+  })
+  .option('over', {
+    description: 'network protocol to use',
+    alias: 'o',
+    string: true,
+    default: 'tcp'
+  })
+  .option('concurrency', {
+    description: 'number of reactors to create',
+    alias: 'c',
+    number: true,
+    default: os.cpus().length - 1
+  })
+  .option('duration', {
+    description: 'duration of the test',
+    alias: 'd',
+    number: true,
+    default: 10
+  })
+  .option('ttl', {
+    description: 'ttl duration of messages',
+    number: true,
+    default: 0
+  });
+
+argv = optimist.argv;
+
+if (argv.help || argv.h) {
+  return optimist.showHelp();
+}
+
+console.log([
+  'Starting performance test with:',
+  '  network protocol ' + argv.over,
+  '  concurrency:     ' + argv.c,
+  '  duration:        ' + argv.d + 's',
+  '  ttl:             ' + argv.ttl,
+  '  port:            ' + argv.port,
+  ''
+].join('\n'));
 
 async.series({
   reactor: async.apply(helpers.run, 'reactor', {
-    type: 'tcp',
-    port: port,
+    type: argv.over,
+    port: argv.port,
+    duration: argv.duration,
     processes: 1
   }),
   producers: async.apply(helpers.run, 'producer', {
-    type: 'tcp',
-    port: port,
-    processes: os.cpus().length - 1,
+    type: argv.over,
+    port: argv.port,
+    processes: argv.concurrency,
     produce: {
       host: "127.0.0.1",
       service: "godot/performance",
@@ -28,7 +75,7 @@ async.series({
       description: "Waiting to performance test Godot",
       tags: ["test", "perf"],
       metric: 1,
-      ttl: 0
+      ttl: argv.ttl
     }
   })
 }, function (err, procs) {
@@ -38,13 +85,15 @@ async.series({
     process.exit(1);
   }
 
+  console.log('\nNow receiving messages...');
+
   setTimeout(function () {
     Object.keys(procs).forEach(function (type) {
       procs[type].forEach(function (child) {
         child.kill();
       });
     });
-    
+
     process.exit();
-  }, 10 * 1000);
+  }, (argv.duration + 2) * 1000);
 })

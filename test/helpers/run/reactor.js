@@ -18,8 +18,15 @@ function start(options) {
     multiplex: false,
     reactors:  [
       godot.reactor()
-        .count(1000)
-        .console()
+        .count(options.duration * 1000)
+        .console(function (data) {
+          console.log([
+            '',
+            'Received:',
+            '  ' + data.metric + ' total messages',
+            '  ' + data.metric/options.duration + ' per second'
+          ].join('\n'));
+        })
     ]
   }, function (err) {
     return err
