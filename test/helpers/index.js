@@ -73,3 +73,4 @@ exports.timeSeries = function (event, length, duration) {
 //
 exports.net     = require('./net');
 exports.reactor = require('./reactor');
+exports.run     = require('./run');
