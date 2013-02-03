@@ -25,9 +25,6 @@
     "r...e": "0.2.x",
     "vows": "0.7.0"
   },
-  "publishConfig": {
-    "registry": "http://reg.njitsu.net:5984"
-  },
   "main": "./lib/godot",
   "engines": {
     "node": "0.8.x"
