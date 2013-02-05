@@ -77,12 +77,12 @@ Reactors in Godot are **readable and writable** [Stream][stream] instances which
 There are several core Reactor primatives available in `godot` which can be composed to create more complex behavior:
 
 * `.aggregate()`: Aggregates `metric` property on events
-* `.change(key0, key1, ...)`: Emits events in which **any** of `key0 ... keyN` have changed. 
-* `.email(options)`: Sends and email to the specified [options][email-options].
-* `.expire(ttl)`: Emits an event when no data is received after `ttl` milliseconds. 
+* `.change(key0, key1, ...)`: Emits events in which **any** of `key0 ... keyN` have changed.
+* `.email(options)`: Sends an email to the specified [options][email-options].
+* `.expire(ttl)`: Emits an event when no data is received after `ttl` milliseconds.
 * `.forward(options)`: Forwards all events to a remote server located at `options.host` and `options.port`.
-* `.sms(options)`: Sends and email to the specified [options][sms-options].
-* `.where(key, value)|.where(filters)`: Filters events based on a single `key:value` pair or a set of `key:value` filters. 
+* `.sms(options)`: Sends an sms to the specified [options][sms-options].
+* `.where(key, value)|.where(filters)`: Filters events based on a single `key:value` pair or a set of `key:value` filters.
 
 ## Producers
 Producers in Godot are **readable** [Stream][stream] instances which produce [Events](#events). Events will be emitted by a given Producer every `ttl` milliseconds.
@@ -100,4 +100,6 @@ All tests are written in [vows][vows] and can be run with [npm][npm]:
 [riemann]: http://aphyr.github.com/riemann/
 [stream]: http://nodejs.org/api/stream.html
 [email-options]: https://github.com/nodejitsu/godot/tree/master/lib/godot/reactor/email.js
-[sms-options]: https://github.com/nodejitsu/godot/tree/master/lib/godot/reactor/email.js
+[sms-options]: https://github.com/nodejitsu/godot/blob/master/lib/godot/reactor/sms.js
+[npm]: https://npmjs.org
+[vows]: http://vowsjs.org/
