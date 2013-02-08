@@ -45,7 +45,7 @@ Here is a simple example of a [Reactor](#reactors) server that will send an emai
     type: 'udp',
     producers: [
       godot.producer({
-        host: 'app.server.com'
+        host: 'app.server.com',
         service: 'app.server/health/heartbeat',
         ttl: 1000 * 15
       })
