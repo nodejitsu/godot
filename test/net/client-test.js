@@ -13,9 +13,25 @@ var assert = require('assert'),
     macros = require('../macros');
 
 vows.describe('godot/net/client').addBatch({
-  "Godot client": macros.net.shouldSendDataOverBoth({
-    producers: [
-      godot.producer(helpers.fixtures['producer-test'])
-    ]
-  })
+  "Godot client": macros.net.shouldSendDataOverBoth(
+    {
+      producers: [
+        godot.producer(helpers.fixtures['producer-test'])
+      ]
+    },
+    {
+      "on close": {
+        topic: function() {
+          var client = this.client;
+          client.close();
+          this.callback();
+        },
+        "should remove all producers": function () {
+          var client = this.client;
+          assert.isObject(client.producers);
+          assert.isEmpty(client.producers);
+        }
+      }
+    }
+  )
 }).export(module);
