@@ -61,6 +61,9 @@ exports.shouldSendData = function (options, nested) {
 
   if (nested) {
     Object.keys(nested).forEach(function (vow) {
+      if(!context.hasOwnProperty('after data is sent')) {
+        context['after data is sent'] = {};
+      }
       context['after data is sent'][vow] = nested[vow];
     });
   }
