@@ -32,6 +32,7 @@ exports.shouldSendData = function (options, nested) {
   var context = {
     topic: function () {
       var callback = this.callback;
+      var that = this;
 
       async.series({
         server: async.apply(mocks.net.createServer, options),
@@ -42,6 +43,8 @@ exports.shouldSendData = function (options, nested) {
           console.dir(err);
           process.exit(1);
         }
+        that.server = results.server;
+        that.client = results.client;
 
         results.server.once('data', function (data) {
           callback(null, data);
