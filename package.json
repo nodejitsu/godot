@@ -18,6 +18,7 @@
     "sendgrid-web": "0.0.2",
     "telenode": "0.0.3",
     "utile": "0.1.7",
+    "graphite": "0.0.6",
     "window-stream": "0.2.3"
   },
   "devDependencies": {
