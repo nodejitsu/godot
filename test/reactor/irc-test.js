@@ -18,12 +18,10 @@ vows.describe('godot/reactor/irc').addBatch({
         .reactor()
         .where('service', '*/health/memory')
         .irc({
-          server: 'irc.test.net',
-          nick: 'gobot',
-          bot: mocks.irc,
-          options: { 
-            channels: ['#gotbottest']
-          }
+          host: 'irc.test.net',
+          nick: 'godot',
+          channels: ['#godotirc'],
+          client: mocks.irc,
         }),
       'health',
       1
@@ -33,13 +31,11 @@ vows.describe('godot/reactor/irc').addBatch({
         .reactor()
         .where('service', '*/health/heartbeat')
         .irc({
-          server: 'irc.test.net',
-          nick: 'gobot',
-          interval: 60 * 60 * 1000,
-          bot: mocks.irc,
-          options: { 
-            channels: ['#gotbottest']
-          }
+          host: 'irc.test.net',
+          nick: 'godot',
+          channels: ['#godotirc'],
+          client: mocks.irc,
+          interval: 60 * 60 * 1000
         }),
       'health',
       1

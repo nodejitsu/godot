@@ -13,5 +13,14 @@ exports.say = function (channels, message) {
 };
 
 exports.on = function (event, callback) {
-  callback();
+ 	switch(event) {
+    case 'join':
+      callback('godot!~godot@xxx.xxx.com', '#godotirc');
+      break;
+    case 'kick':
+      callback('olivier__!~olivier@xxx.xxx.com', '#godotirc', 'godotirc');
+      break;
+    default:
+      callback();
+  }
 };
