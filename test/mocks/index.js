@@ -7,4 +7,5 @@
 
 exports.email = require('./email');
 exports.net   = require('./net');
+exports.redis = require('./redis');
 exports.sms   = require('./sms');
