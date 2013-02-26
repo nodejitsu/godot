@@ -19,9 +19,16 @@ exports.createClient = function (options, callback) {
     producers: options.producers
   });
 
-  client.connect(options.port, options.host || 'localhost', function (err) {
-    return err ? callback(err) : callback(null, client);
-  });
+  if (options.type === 'tcp' || options.type === 'udp') {
+    client.connect(options.port, options.host || 'localhost', function (err) {
+      return err ? callback(err) : callback(null, client);
+    });
+  }
+  else if (options.type === 'unix') {
+    client.connect(options.path, function (err) {
+      return err ? callback(err) : callback(null, client);
+    });
+  }
 };
 
 //
@@ -37,9 +44,16 @@ exports.createServer = function (options, callback) {
     multiplex: options.multiplex
   });
 
-  server.listen(options.port, options.host || 'localhost', function (err) {
-    return err ? callback(err) : callback(null, server);
-  });
+  if (options.type === 'udp' || options.type === 'tcp') {
+    server.listen(options.port, options.host || 'localhost', function (err) {
+      return err ? callback(err) : callback(null, server);
+    });
+  }
+  else if (options.type === 'unix') {
+    server.listen(options.path, function (err) {
+      return err ? callback(err) : callback(null, server);
+    });
+  }
 };
 
 //

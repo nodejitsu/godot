@@ -9,6 +9,7 @@ var assert = require('assert'),
     async = require('utile').async,
     helpers = require('../helpers'),
     mocks = require('../mocks'),
+    fs = require('fs'),
     godot = require('../../lib/godot');
 
 //
@@ -33,21 +34,23 @@ exports.shouldSendData = function (options, nested) {
     topic: function () {
       var callback = this.callback;
       var that = this;
+      // Clears the socket for the unix sockets case
+      fs.unlink('unix.sock', function () {
+        async.series({
+          server: async.apply(mocks.net.createServer, options),
+          client: async.apply(helpers.net.createClient, options)
+        }, function (err, results) {
+          if (err) {
+            console.log('Error creating mock server');
+            console.dir(err);
+            process.exit(1);
+          }
+          that.server = results.server;
+          that.client = results.client;
 
-      async.series({
-        server: async.apply(mocks.net.createServer, options),
-        client: async.apply(helpers.net.createClient, options)
-      }, function (err, results) {
-        if (err) {
-          console.log('Error creating mock server');
-          console.dir(err);
-          process.exit(1);
-        }
-        that.server = results.server;
-        that.client = results.client;
-
-        results.server.once('data', function (data) {
-          callback(null, data);
+          results.server.once('data', function (data) {
+            callback(null, data);
+          });
         });
       });
     },
@@ -95,6 +98,11 @@ exports.shouldSendDataOverBoth = function (options, nested) {
       host: 'localhost',
       port: helpers.nextPort,
       producers: options.producers
+    }, nested),
+    "UNIX": exports.shouldSendData({
+      type: 'unix',
+      path: 'unix.sock',
+      producers: options.producers
     }, nested)
   };
 };
@@ -122,28 +130,29 @@ exports.shouldDuplex = function (options, nested) {
   var context = {
     topic: function () {
       var that = this;
+      fs.unlink('unix.sock', function () {
+        async.series({
+          //
+          // * Create the `godot.net.Server` instance
+          //
+          server: async.apply(
+            helpers.net.createServer, options
+          ),
+          //
+          // * Create the `godot.net.Client` instance
+          //
+          client: async.apply(
+            helpers.net.createClient, options
+          )
+        }, function (err, results) {
+          if (err) {
+            return that.callback(err);
+          }
 
-      async.series({
-        //
-        // * Create the `godot.net.Server` instance
-        //
-        server: async.apply(
-          helpers.net.createServer, options
-        ),
-        //
-        // * Create the `godot.net.Client` instance
-        //
-        client: async.apply(
-          helpers.net.createClient, options
-        )
-      }, function (err, results) {
-        if (err) {
-          return that.callback(err);
-        }
-
-        that.server = results.server;
-        that.client = results.client;
-        that.callback();
+          that.server = results.server;
+          that.client = results.client;
+          that.callback();
+        });
       });
     },
     "should start correctly": function (err, _) {
@@ -203,6 +212,13 @@ exports.shouldDuplexBoth = function (options, nested) {
       type: 'udp',
       ttl: options.ttl,
       port: helpers.nextPort,
+      reactors: options.reactors,
+      producers: options.producers
+    }, nested),
+    "UNIX": exports.shouldDuplex({
+      type: 'unix',
+      path: 'unix.sock',
+      ttl: options.ttl,
       reactors: options.reactors,
       producers: options.producers
     }, nested)

@@ -89,4 +89,20 @@ exports.createServer = function (options, callback) {
     server.once('error', respond);
     server.listen(options.port, options.host, respond);
   }
+  else if (options.type === 'unix') {
+    server = net.createServer({type: 'unix'});
+    server.on('connection', function (socket) {
+      socket.setEncoding('utf8');
+
+      var parser = new JsonParser();
+      socket.pipe(parser);
+
+      parser.on('data', function (data) {
+        server.emit('data', data);
+      });
+    });
+
+    server.once('error', respond);
+    server.listen(options.path, respond);
+  }
 };
