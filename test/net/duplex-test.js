@@ -13,7 +13,7 @@ var assert = require('assert'),
 
 vows.describe('godot/net/duplex').addBatch({
   "Godot duplex": {
-    "where & where + expire": macros.shouldDuplexBoth(
+    "where & where + expire": macros.shouldDuplexAll(
       {
         ttl: 200,
         reactors: [

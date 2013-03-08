@@ -78,14 +78,14 @@ exports.shouldSendData = function (options, nested) {
 };
 
 //
-// ### function shouldSendDataOverBoth (options, nested)
+// ### function shouldSendDataOverAll (options, nested)
 // #### @options {Options} Options to setup communication
 // ####   @options.producers {Array}   Set of producers to use.
 // #### @nested {Object} Vows context to use once communcation is established.
-// Does the same as `exports.shouldSendData`, but runs the test over both
-// TCP **and** UDP.
+// Does the same as `exports.shouldSendData`, but runs the test over
+// TCP UNIX **and** UDP.
 //
-exports.shouldSendDataOverBoth = function (options, nested) {
+exports.shouldSendDataOverAll = function (options, nested) {
   return {
     "TCP": exports.shouldSendData({
       type: 'tcp',
@@ -190,16 +190,16 @@ exports.shouldDuplex = function (options, nested) {
 };
 
 //
-// ### function shouldDuplexBoth (options, nested)
+// ### function shouldDuplexAll (options, nested)
 // #### @options {Options} Options to setup full duplex communication
 // ####   @options.ttl       {number}  Default Expiry TTL.
 // ####   @options.reactors  {Array}   Set of reactors to use.
 // ####   @options.producers {Array}   Set of producers to use.
 // #### @nested {Object} Vows context to use once communcation is established.
-// Does the same as `exports.shouldDuplex`, but runs the test over both
-// TCP **and** UDP.
+// Does the same as `exports.shouldDuplex`, but runs the test over
+// TCP UNIX **and** UDP.
 //
-exports.shouldDuplexBoth = function (options, nested) {
+exports.shouldDuplexAll = function (options, nested) {
   return {
     "TCP": exports.shouldDuplex({
       type: 'tcp',
