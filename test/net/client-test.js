@@ -13,7 +13,7 @@ var assert = require('assert'),
     macros = require('../macros');
 
 vows.describe('godot/net/client').addBatch({
-  "Godot client": macros.net.shouldSendDataOverBoth(
+  "Godot client": macros.net.shouldSendDataOverAll(
     {
       producers: [
         godot.producer(helpers.fixtures['producer-test'])

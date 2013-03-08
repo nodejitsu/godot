@@ -13,7 +13,7 @@ var assert = require('assert'),
 
 vows.describe('godot/net/duplex/multiple').addBatch({
   "Godot duplex": {
-    "tagged": macros.shouldDuplexBoth(
+    "tagged": macros.shouldDuplexAll(
       {
         ttl: 200,
         reactors: [
@@ -31,11 +31,11 @@ vows.describe('godot/net/duplex/multiple').addBatch({
             var until = 15,
                 that = this,
                 taggedStream;
-            
+
             that.data = [];
-            
+
             taggedStream = helpers.net.getStream(this.server, 'tagged')
-            
+
             taggedStream.on('data', function onData(data) {
               that.data.push(data);
               if (that.data.length > until) {
