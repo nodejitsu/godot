@@ -1,5 +1,5 @@
 /*
- * change-test.js: Tests for the Change reactor stream.
+ * by-test.js: Tests for the By reactor stream.
  *
  * (C) 2012, Nodejitsu Inc.
  *
