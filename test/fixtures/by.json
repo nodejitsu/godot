@@ -1,26 +1,32 @@
 [
   {
     "service": "charlie/app/health/heartbeat",
+    "metric": 1,
     "ttl": 50
   },
   {
     "service": "charlie/app/health/memory",
+    "metric": 10,
     "ttl": 50
   },
   {
     "service": "charlie/app/health/heartbeat",
+    "metric": 1,
     "ttl": 50
   },
   {
     "service": "charlie/app/health/heartbeat",
+    "metric": 1,
     "ttl": 100
   },
   {
     "service": "charlie/app/health/memory",
+    "metric": 10,
     "ttl": 100
   },
   {
     "service": "charlie/app/health/heartbeat",
+    "metric": 1,
     "ttl": 100
   }
   

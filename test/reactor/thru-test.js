@@ -10,7 +10,9 @@ var assert = require('assert'),
     godot = require('../../lib/godot'),
     macros = require('../macros').reactor;
 
-var counts = [0, 0, 0];
+var counts = [0, 0, 0],
+    over   = 0,
+    under  = 0;
 
 //
 // Helper function to increment the 
@@ -52,11 +54,33 @@ vows.describe('godot/reactor/thru').addBatch({
       'by',
       6
     ),
+    "over under": macros.shouldEmitDataSync(
+      godot.reactor()
+        .thru(
+          godot.reactor()
+            .over(5)
+            .map(function (data) {
+              over++;
+              return data;
+            }),
+          godot.reactor()
+            .under(5)
+            .map(function (data) {
+              under++;
+              return data;
+            })
+        ),
+      'by',
+      6
+    )
   }
 }).addBatch({
   "should emit pipe the events to the correct pipe-chains": function () {
     counts.forEach(function (length, i) {
       assert.equal(length, 6 * (i + 1));
     });
+
+    assert.equal(over, 2);
+    assert.equal(under, 4);
   }
 }).export(module);
