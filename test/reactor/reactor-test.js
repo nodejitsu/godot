@@ -32,6 +32,7 @@ vows.describe('godot/reactor').addBatch({
        'taggedAny',
        'taggedAll',
        'throttle',
+       'thru',
        'timeWindow',
        'under',
        'where',
