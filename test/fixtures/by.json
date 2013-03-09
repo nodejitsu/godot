@@ -10,5 +10,18 @@
   {
     "service": "charlie/app/health/heartbeat",
     "ttl": 50
+  },
+  {
+    "service": "charlie/app/health/heartbeat",
+    "ttl": 100
+  },
+  {
+    "service": "charlie/app/health/memory",
+    "ttl": 100
+  },
+  {
+    "service": "charlie/app/health/heartbeat",
+    "ttl": 100
   }
+  
 ]

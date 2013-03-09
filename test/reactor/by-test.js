@@ -10,7 +10,10 @@ var assert = require('assert'),
     godot = require('../../lib/godot'),
     macros = require('../macros').reactor;
 
-var count = 0;
+var counts = {
+  service: 0,
+  'service+ttl': 0
+};
 
 vows.describe('godot/reactor/by').addBatch({
   "Godot by": {
@@ -19,16 +22,29 @@ vows.describe('godot/reactor/by').addBatch({
         .by(
           'service',
           godot.reactor().map(function (data) {
-            count++;
+            counts.service++;
             return data;
           })
         ),
       'by',
-      3
+      6
+    ),
+    "[service, ttl]": macros.shouldEmitDataSync(
+      godot.reactor()
+        .by(
+          ['service', 'ttl'],
+          godot.reactor().map(function (data) {
+            counts['service+ttl']++;
+            return data;
+          })
+        ),
+      'by',
+      6
     )
   }
 }).addBatch({
   "Should emit pipe the events to the correct pipe-chains": function () {
-    assert.equal(count, 3);
+    assert.equal(counts.service, 6);
+    assert.equal(counts['service+ttl'], 12);
   }
 }).export(module);
