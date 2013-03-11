@@ -1,5 +1,5 @@
 /*
- * thru-test.js: Tests for the Thru reactor stream.
+ * around-test.js: Tests for the Around reactor stream.
  *
  * (C) 2012, Nodejitsu Inc.
  *
@@ -25,11 +25,11 @@ function increment(i) {
   };
 }
 
-vows.describe('godot/reactor/thru').addBatch({
-  "Godot thru": {
+vows.describe('godot/reactor/around').addBatch({
+  "Godot around": {
     "one reactor": macros.shouldEmitDataSync(
       godot.reactor()
-        .thru(
+        .around(
           godot.reactor().map(increment(0))
         ),
       'by',
@@ -37,7 +37,7 @@ vows.describe('godot/reactor/thru').addBatch({
     ),
     "two reactors": macros.shouldEmitDataSync(
       godot.reactor()
-        .thru(
+        .around(
           godot.reactor().map(increment(1)),
           godot.reactor().map(increment(1))
         ),
@@ -46,7 +46,7 @@ vows.describe('godot/reactor/thru').addBatch({
     ),
     "three reactors": macros.shouldEmitDataSync(
       godot.reactor()
-        .thru(
+        .around(
           godot.reactor().map(increment(2)),
           godot.reactor().map(increment(2)),
           godot.reactor().map(increment(2))
@@ -56,7 +56,7 @@ vows.describe('godot/reactor/thru').addBatch({
     ),
     "over under": macros.shouldEmitDataSync(
       godot.reactor()
-        .thru(
+        .around(
           godot.reactor()
             .over(5)
             .map(function (data) {

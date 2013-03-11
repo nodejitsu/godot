@@ -12,7 +12,9 @@ var assert = require('assert'),
 vows.describe('godot/reactor').addBatch({
   "Godot reactor": {
     "should have the correct primiatives": function () {
-      ['change',
+      ['around',
+       'by',
+       'change',
        'count',
        'console',
        'combine',
@@ -32,7 +34,6 @@ vows.describe('godot/reactor').addBatch({
        'taggedAny',
        'taggedAll',
        'throttle',
-       'thru',
        'timeWindow',
        'under',
        'where',
