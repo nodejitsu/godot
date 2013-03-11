@@ -31,7 +31,9 @@ vows.describe('godot/reactor/moving-average').addBatch({
       }, 1000, 10),
       100,
       function (all) {
-        all.forEach(function (num, i) {
+        all.map(function (data) {
+          return data.metric;
+        }).forEach(function (num, i) {
           var di  = i + 1,
               set = di < 10
                 ? range(1, di)
@@ -63,7 +65,9 @@ vows.describe('godot/reactor/moving-average').addBatch({
       }, 1000, 10),
       100,
       function (all) {
-        all.forEach(function (num, i) {
+        all.map(function (data) {
+          return data.metric;
+        }).forEach(function (num, i) {
           var di = i + 1,
               divisor = di < 10 ? di : 10;
           
