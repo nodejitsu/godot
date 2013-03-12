@@ -1,0 +1,24 @@
+[
+  {
+    "host": "127.0.0.1",
+    "service": "charlie/app/health/heartbeat",
+    "metric": 1,
+    "ttl": 50
+  },
+  {
+    "host": "127.0.0.1",
+    "service": "charlie/app/health/memory",
+    "ttl": 50
+  },
+  {
+    "host": "127.0.0.2",
+    "service": "charlie/app/health/heartbeat",
+    "ttl": 50
+  },
+  {
+    "host": "127.0.0.1",
+    "service": "charlie/app/health/heartbeat",
+    "metric": 0,
+    "ttl": 50
+  }
+]
