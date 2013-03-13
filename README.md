@@ -63,8 +63,9 @@ Similar to [Riemann][riemann], events in `godot` are simply JSON sent over UDP o
     state:        "Any string less than 255 bytes, e.g. 'ok', 'warning', 'critical'",
     time:         "The time of the event, in unix epoch seconds",
     description:  "Freeform text",
-    tags:         "Freeform list of strings, e.g. ['rate', 'fooproduct', 'transient']"
-    metric:       "A number associated with this event, e.g. the number of reqs/sec."
+    tags:         "Freeform list of strings, e.g. ['rate', 'fooproduct', 'transient']",
+    meta:         "Freeform set of key:value pairs e.g. { 'ewma': 12345 }",
+    metric:       "A number associated with this event, e.g. the number of reqs/sec.",
     ttl:          "A floating-point time, in seconds, that this event is considered valid for."
   }
 ```
