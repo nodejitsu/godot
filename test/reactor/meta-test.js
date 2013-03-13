@@ -80,34 +80,98 @@ vows.describe('godot/reactor/meta').addBatch({
       }
     },
     "hasMeta": {
-      "all": macros.shouldEmitDataSync(
+      "all": {
+        "with only keys": macros.shouldEmitDataSync(
+          godot
+            .reactor()
+            .hasMeta('all', 'a', 'b', 'c'),
+          'meta',
+          5
+        ),
+        "with all values": macros.shouldEmitDataSync(
+          godot
+            .reactor()
+            .hasMeta('all', { a: 1, b: 1, c: 1 }),
+          'meta',
+          5
+        ),
+        "with keys and values": macros.shouldEmitDataSync(
+          godot
+            .reactor()
+            .hasMeta('all', { a: 1 }, 'b', 'c'),
+          'meta',
+          5
+        ),
+      },
+      "any": {
+        "with only keys": macros.shouldEmitDataSync(
+          godot
+            .reactor()
+            .hasMeta('any', 'a'),
+          'meta',
+          10
+        ),
+        "with all values": macros.shouldEmitDataSync(
+          godot
+            .reactor()
+            .hasMeta('any', { a: 1, b: 0, c: 0 }),
+          'meta',
+          10
+        ),
+        "with keys and values": macros.shouldEmitDataSync(
+          godot
+            .reactor()
+            .hasMeta('any', 'a', { b: 0, c: 0 }),
+          'meta',
+          10
+        ),
+      }
+    },
+    "anyMeta": {
+      "with only keys": macros.shouldEmitDataSync(
         godot
           .reactor()
-          .hasMeta('all', 'a', 'b', 'c'),
+          .anyMeta('a'),
+        'meta',
+        10
+      ),
+      "with all values": macros.shouldEmitDataSync(
+        godot
+          .reactor()
+          .anyMeta({ a: 1, b: 0, c: 0 }),
+        'meta',
+        10
+      ),
+      "with keys and values": macros.shouldEmitDataSync(
+        godot
+          .reactor()
+          .anyMeta('a', { b: 0, c: 0 }),
+        'meta',
+        10
+      ),
+    },
+    "allMeta": {
+      "with only keys": macros.shouldEmitDataSync(
+        godot
+          .reactor()
+          .allMeta('a', 'b', 'c'),
         'meta',
         5
       ),
-      "any": macros.shouldEmitDataSync(
+      "with all values": macros.shouldEmitDataSync(
         godot
           .reactor()
-          .hasMeta('any', 'a'),
+          .allMeta({ a: 1, b: 1, c: 1 }),
         'meta',
-        10
-      )
-    },
-    "anyMeta": macros.shouldEmitDataSync(
-      godot
-        .reactor()
-        .anyMeta('a'),
-      'meta',
-      10
-    ),
-    "allMeta": macros.shouldEmitDataSync(
-      godot
-        .reactor()
-        .allMeta('a', 'b', 'c'),
-      'meta',
-      5
-    )
+        5
+      ),
+      "with keys and values": macros.shouldEmitDataSync(
+        godot
+          .reactor()
+          .allMeta({ a: 1 }, 'b', 'c'),
+        'meta',
+        5
+      ),
+    }
   }
 }).export(module);
