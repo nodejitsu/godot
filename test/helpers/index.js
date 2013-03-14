@@ -58,10 +58,22 @@ exports.timeSeries = function (event, length, duration) {
       now = +Date.now();
 
   return range(1, intervals).map(function (interval) {
-    return Object.keys(event).reduce(function (obj, key) {
-      obj[key] = typeof event[key] === 'function'
-        ? event[key](interval)
-        : event[key]
+    return Object.keys(event).reduce(function reduceKey(obj, key) {
+      if (typeof event[key] === 'function') {
+        obj[key] = event[key](interval)
+      }
+      else if (Array.isArray(event[key])) {
+        obj[key] = event[key].slice();
+      }
+      else if (typeof event[key] === 'object') {
+        obj[key] = Object.keys(event[key]).reduce(function (value, kkey) {
+          value[kkey] = event[key][kkey];
+          return value;
+        }, {});
+      }
+      else {
+        obj[key] = event[key];
+      }
 
       return obj;
     }, { time: now + (interval * duration) });

@@ -1,0 +1,82 @@
+[
+  {
+    "service": "charlie/app/health/ping",
+    "metric": 1,
+    "meta": {
+      "a": 1,
+      "b": 1,
+      "c": 1
+    }
+  },
+  {
+    "service": "charlie/app/health/ping",
+    "metric": 1,
+    "meta": {
+      "a": 1
+    }
+  },
+  {
+    "service": "charlie/app/health/ping",
+    "metric": 1,
+    "meta": {
+      "a": 1,
+      "b": 1,
+      "c": 1
+    }
+  },
+  {
+    "service": "charlie/app/health/ping",
+    "metric": 1,
+    "meta": {
+      "a": 1
+    }
+  },
+  {
+    "service": "charlie/app/health/ping",
+    "metric": 1,
+    "meta": {
+      "a": 1,
+      "b": 1,
+      "c": 1
+    }
+  },
+  {
+    "service": "charlie/app/health/ping",
+    "metric": 1,
+    "meta": {
+      "a": 1
+    }
+  },
+  {
+    "service": "charlie/app/health/ping",
+    "metric": 1,
+    "meta": {
+      "a": 1,
+      "b": 1,
+      "c": 1
+    }
+  },
+  {
+    "service": "charlie/app/health/ping",
+    "metric": 1,
+    "meta": {
+      "a": 1
+    }
+  },
+  {
+    "service": "charlie/app/health/ping",
+    "metric": 1,
+    "meta": {
+      "a": 1,
+      "b": 1,
+      "c": 1
+    }
+  },
+  {
+    "service": "charlie/app/health/ping",
+    "metric": 1,
+    "meta": {
+      "a": 1
+    }
+  }
+]
