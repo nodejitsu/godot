@@ -20,5 +20,17 @@ vows.describe('godot/reactor/map').addBatch({
       }),
     'pings',
     3
+  ),
+  "Godot map async": macros.shouldHaveMetric(
+    godot
+      .reactor()
+      .map(function (data, callback) {
+        data.metric = data.metric * 3;
+        process.nextTick(function () {
+          callback(null, data);
+        });
+      }),
+    'health',
+    3
   )
 }).export(module);

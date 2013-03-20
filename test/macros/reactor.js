@@ -28,9 +28,11 @@ exports.shouldEmitData = function (reactor, fixture, length, timeout, assertFn) 
       stream.on('data', function (data) { all.push(data) });
       helpers.writeFixture(source, fixture);
 
-      setTimeout(function () {
-        that.callback(null, all)
-      }, timeout);
+      stream.on('end', function () {
+        setTimeout(function () {
+          that.callback(null, all)
+        }, timeout);
+      });
     },
     "should emit the appropriate events": function (err, all) {
       assert.isNull(err);
@@ -68,6 +70,40 @@ exports.shouldEmitDataSync = function (reactor, fixture, length, assertFn) {
       if (assertFn) {
         assertFn(all);
       }
+    }
+  };
+};
+
+//
+// ### function shouldHaveMetric (reactor, fixture, value)
+// #### @reactor {Reactor} Reactor to assert against
+// #### @fixture {string} Test fixture to write data to
+// #### @value {number} Expected value of the metric on the last event.
+// Test macro for asserting that the value of the `metric` property of
+// the last event emitted from the `reactor` is `value` using
+// the test `fixture`.
+//
+exports.shouldHaveMetric = function (reactor, fixture, value, timeout) {
+  return {
+    topic: function () {
+      var source = new ReadWriteStream(),
+          stream = reactor.createStream(source),
+          that = this,
+          last;
+
+      stream.on('data', function (data) { last = data });
+      stream.on('end',  function () {
+        setTimeout(function () {
+          that.callback(null, last);
+        }, timeout || 100);
+      });
+
+      helpers.writeFixture(source, fixture);
+    },
+    "should have the appropriate `metric`": function (err, last) {
+      assert.isNull(err);
+      assert.isObject(last)
+      assert.equal(last.metric, value);
     }
   };
 };
