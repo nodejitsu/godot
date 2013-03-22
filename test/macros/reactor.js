@@ -26,13 +26,12 @@ exports.shouldEmitData = function (reactor, fixture, length, timeout, assertFn) 
           all = [];
 
       stream.on('data', function (data) { all.push(data) });
-      helpers.writeFixture(source, fixture);
-
       stream.on('end', function () {
         setTimeout(function () {
           that.callback(null, all)
         }, timeout);
       });
+      helpers.writeFixture(source, fixture);
     },
     "should emit the appropriate events": function (err, all) {
       assert.isNull(err);
