@@ -17,21 +17,8 @@ vows.describe('godot/reactor/redis').addBatch({
       .where('service', '*/health/memory')
       .redis({
         client: mocks.redis
-      }, function (client, data) {
-        // Do something with redis of your choosing
-        return data;
-      }),
-    'health',
-    1
-  ),
-  "Godot redis async": macros.shouldEmitData(
-    godot
-      .reactor()
-      .where('service', '*/health/memory')
-      .redis({
-        client: mocks.redis
       }, function (client, data, callback) {
-        // Do something with redis asyncly
+        // Do something with redis of your choosing
         process.nextTick(function () {
           callback(null, data);
         });

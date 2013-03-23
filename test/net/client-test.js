@@ -21,7 +21,7 @@ vows.describe('godot/net/client').addBatch({
     },
     {
       "on close": {
-        topic: function() {
+        topic: function () {
           var client = this.client;
           client.close();
           this.callback();
