@@ -10,7 +10,8 @@ var assert = require('assert'),
     async = require('utile').async,
     godot = require('../../lib/godot'),
     helpers = require('../helpers'),
-    macros = require('../macros');
+    macros = require('../macros'),
+    mocks = require('../mocks');
 
 vows.describe('godot/net/client').addBatch({
   "Godot client": {
@@ -66,6 +67,50 @@ vows.describe('godot/net/client').addBatch({
       },
       "should take appropiate amount of time": function (_, err, t) {
         assert(t >= 300);
+      }
+    },
+    "with backoff and server eventually coming up": {
+      topic: function () {
+        var callback = this.callback,
+            port = helpers.nextPort,
+            d = new Date();
+
+        var client = godot.createClient({
+          type: 'tcp',
+          producers: [
+            godot.producer(helpers.fixtures['producer-test'])
+          ],
+          reconnect: {
+            type: 'exponential',
+            maxTries: 2,
+            initialDelay: 100,
+            maxDelay: 300
+          }
+        });
+
+        client.connect(port);
+        client.on('error', function (err) {
+          throw err;
+        });
+
+        setTimeout(function () {
+          mocks.net.createServer({ type: 'tcp', port: port }, function (err, server) {
+            if (err) {
+              throw err;
+            }
+
+            server.once('data', function (data) {
+              callback(null, data, (new Date()) - d);
+            });
+          });
+        }, 100);
+      },
+      "should send data": function (err, data) {
+        assert(!err);
+        assert(data);
+      },
+      "should take appropiate amount of time": function (_, err, t) {
+        assert(t >= 200);
       }
     }
   }
