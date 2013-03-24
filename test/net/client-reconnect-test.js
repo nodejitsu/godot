@@ -103,7 +103,7 @@ vows.describe('godot/net/client').addBatch({
               callback(null, data, (new Date()) - d);
             });
           });
-        }, 100);
+        }, 300);
       },
       "should send data": function (err, data) {
         assert(!err);
