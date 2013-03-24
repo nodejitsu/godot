@@ -21,7 +21,8 @@
     "sendgrid-web": "0.0.2",
     "telenode": "0.0.3",
     "utile": "0.1.7",
-    "window-stream": "~0.3.1"
+    "window-stream": "~0.3.1",
+    "backoff": "2.0.x"
   },
   "devDependencies": {
     "optimist": "0.3.4",
