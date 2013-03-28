@@ -22,7 +22,7 @@
     "telenode": "0.0.3",
     "utile": "0.1.7",
     "window-stream": "~0.3.1",
-    "backoff": "2.0.x"
+    "backoff": "2.1.x"
   },
   "devDependencies": {
     "optimist": "0.3.4",
