@@ -13,6 +13,46 @@ var assert = require('assert'),
     godot = require('../../lib/godot');
 
 //
+// ### function shouldStartServer(options, nested)
+// #### @options {Options} Options to setup communication
+// ####   @options.type      {udp|tcp} Network protocol.
+// ####   @options.port      {number}  Port to communicate over.
+// #### @nested {Object} Vows context to use once server is started.
+// Starts the server with specified options.
+//
+exports.shouldStartServer = function (options, nested) {
+  var context = {
+    topic: function () {
+      var self = this;
+
+      function create() {
+        mocks.net.createServer(options, function (err, server) {
+          if (err) {
+            console.log('Error creating mock server');
+            console.dir(err);
+            process.exit(1);
+          }
+
+          self.server = server;
+
+          self.callback(null, server);
+        });
+      }
+
+      options.type === 'unix'
+        ? fs.unlink('unix.sock', create)
+        : create();
+    }
+  };
+
+  if (nested) {
+    context['after the server is created'] = nested;
+  }
+
+  return context;
+};
+
+//
 // ### function shouldSendData (options, nested)
 // #### @options {Options} Options to setup communication
 // ####   @options.type      {udp|tcp} Network protocol.
@@ -31,26 +71,14 @@ exports.shouldSendData = function (options, nested) {
   }
 
   var context = {
-    topic: function () {
-      var callback = this.callback;
-      var that = this;
-      // Clears the socket for the unix sockets case
-      fs.unlink('unix.sock', function () {
-        async.series({
-          server: async.apply(mocks.net.createServer, options),
-          client: async.apply(helpers.net.createClient, options)
-        }, function (err, results) {
-          if (err) {
-            console.log('Error creating mock server');
-            console.dir(err);
-            process.exit(1);
-          }
-          that.server = results.server;
-          that.client = results.client;
+    topic: function (server) {
+      var self = this;
 
-          results.server.once('data', function (data) {
-            callback(null, data);
-          });
+      helpers.net.createClient(options, function (err, client) {
+        self.client = client;
+
+        server.once('data', function (data) {
+          self.callback(null, data);
         });
       });
     },
@@ -65,6 +93,7 @@ exports.shouldSendData = function (options, nested) {
     }
   };
 
+
   if (nested) {
     Object.keys(nested).forEach(function (vow) {
       if (!context.hasOwnProperty('after data is sent')) {
@@ -74,7 +103,7 @@ exports.shouldSendData = function (options, nested) {
     });
   }
 
-  return context;
+  return exports.shouldStartServer(options, context);
 };
 
 //
