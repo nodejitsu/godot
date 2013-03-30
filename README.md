@@ -49,7 +49,16 @@ Here is a simple example of a [Reactor](#reactors) server that will send an emai
         service: 'app.server/health/heartbeat',
         ttl: 1000 * 15
       })
-    ]
+    ],
+    //
+    // Add Reconnect logic that uses node-backoff
+    //
+    reconnect: {
+      type: 'exponential',
+      maxTries: 2,
+      initialDelay: 100,
+      maxDelay: 300
+    }
   }).connect(1337);
 ```
 
