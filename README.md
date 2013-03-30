@@ -78,7 +78,7 @@ Reactors in Godot are **readable and writable** [Stream][stream] instances which
 There are several core Reactor primatives available in `godot` which can be composed to create more complex behavior:
 
 * `.aggregate()`: Aggregates `metric` property on events
-* `.change(key0, key1, ...)`: Emits events in which **any** of `key0 ... keyN` have changed.
+* `.change(key {from: x, to: y})`: Emits events when the key is changed, accepts optional `from` and `to` options for more specific changes.
 * `.email(options)`: Sends an email to the specified [options][email-options].
 * `.expire(ttl)`: Emits an event when no data is received after `ttl` milliseconds.
 * `.forward(options)`: Forwards all events to a remote server located at `options.host` and `options.port`.

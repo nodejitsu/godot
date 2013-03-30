@@ -19,12 +19,12 @@ vows.describe('godot/reactor/change').addBatch({
       'health',
       2
     ),
-    "[service]": macros.shouldEmitDataSync(
+    "service, from -> to": macros.shouldEmitDataSync(
       godot
         .reactor()
-        .change(['service']),
-      'health',
-      2
+        .change('service', {from: 'charlie/app/health/memory', to: 'charlie/app/health/heartbeat'}),
+      'from-to',
+      1
     )
   }
 }).export(module);
