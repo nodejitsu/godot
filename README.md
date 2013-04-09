@@ -5,7 +5,7 @@ Godot is a streaming real-time event processor based on [Riemann][riemann] writt
 * [Usage](#usage)
 * [Events](#events)
 * [Reactors](#reactors)
-  * [Primatives](#primatives)
+  * [Primitives](#primitives)
 * [Producers](#producers)
 * [Tests](#test)
 
@@ -82,9 +82,9 @@ Similar to [Riemann][riemann], events in `godot` are simply JSON sent over UDP o
 ## Reactors
 Reactors in Godot are **readable and writable** [Stream][stream] instances which consume [Events](#events) and produce actions or aggregate data flow.
 
-### Primatives
+### Primitives
 
-There are several core Reactor primatives available in `godot` which can be composed to create more complex behavior:
+There are several core Reactor primitives available in `godot` which can be composed to create more complex behavior:
 
 * `.aggregate()`: Aggregates `metric` property on events
 * `.change(key {from: x, to: y})`: Emits events when the key is changed, accepts optional `from` and `to` options for more specific changes.
