@@ -32,5 +32,13 @@ vows.describe('godot/reactor/map').addBatch({
       }),
     'health',
     3
+  ),
+  "Godot map error": macros.shouldErrorSync(
+    godot
+      .reactor()
+      .map(function (data, callback) {
+        callback(new Error('ERMAHGERD'), null);
+      }),
+    'health'
   )
 }).export(module);
