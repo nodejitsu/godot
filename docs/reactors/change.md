@@ -21,8 +21,8 @@ var change =
     .change('state', {from: 'ok', to: 'error'})
     .rollup(1000 * 60 * 5, 1000)
     .email({
-      to: 'user@host.com'
-      from: 'errors@host.com'
+      to: 'user@host.com',
+      from: 'errors@host.com',
       auth: {
         user: 'user@host.com',
         key: 'xxxxxxxxxxxxxxxx'
