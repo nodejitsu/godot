@@ -8,7 +8,6 @@
 var assert = require('assert'),
     vows = require('vows'),
     godot = require('../../lib/godot'),
-    helpers = require('../helpers'),
     macros = require('../macros').reactor;
 
 vows.describe('godot/reactor/rollup').addBatch({
