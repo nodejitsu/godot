@@ -94,8 +94,9 @@ There are several core Reactor primitives available in `godot` which can be comp
 * `.sms(options)`: Sends an sms to the specified [options][sms-options].
 * `.where(key, value)|.where(filters)`: Filters events based on a single `key:value` pair or a set of `key:value` filters.
 * `.rollup(interval, limit)|.rollup(options)`: Rollup a `limit` amount of events to emit every `interval`. `interval` can also be a function to allow you to create varying intervals (see docs).
-* `.by(key|[key0, key1, key2..], reactor)`: Creates a new godot reactor stream
+* `.by(key|[key0, key1...], reactor)`: Creates a new godot reactor stream
   for each unique value for the key or keys passed into it.
+* `.around(reactor0, reactor1, ...)`: Pipe the same stream of data to independent reactor streams
 
 ## Producers
 Producers in Godot are **readable** [Stream][stream] instances which produce [Events](#events). Events will be emitted by a given Producer every `ttl` milliseconds.
