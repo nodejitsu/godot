@@ -8,6 +8,7 @@
 var assert = require('assert'),
     vows = require('vows'),
     godot = require('../../lib/godot'),
+    helpers = require('../helpers'),
     macros = require('../macros').reactor;
 
 vows.describe('godot/reactor/rollup').addBatch({
@@ -46,7 +47,7 @@ vows.describe('godot/reactor/rollup').addBatch({
         }, 2),
       'health',
       2,
-      300
+      200
     )
   }
 }).export(module);
