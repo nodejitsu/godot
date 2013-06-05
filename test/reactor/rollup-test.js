@@ -37,6 +37,16 @@ vows.describe('godot/reactor/rollup').addBatch({
       'health',
       2,
       300
+    ),
+    "function as interval": macros.shouldEmitData(
+      godot
+        .reactor()
+        .rollup(function (period) {
+          return period * 100;
+        }, 2),
+      'health',
+      2,
+      200
     )
   }
 }).export(module);
