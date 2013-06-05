@@ -13,7 +13,7 @@ var assert = require('assert'),
     macros = require('../macros'),
     mocks = require('../mocks');
 
-vows.describe('godot/net/client').addBatch({
+vows.describe('godot/net/client-reconnect').addBatch({
   "Godot client": {
     "with no backoff and no server": {
       topic: function () {
