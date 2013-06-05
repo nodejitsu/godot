@@ -93,33 +93,9 @@ There are several core Reactor primitives available in `godot` which can be comp
 * `.forward(options)`: Forwards all events to a remote server located at `options.host` and `options.port`.
 * `.sms(options)`: Sends an sms to the specified [options][sms-options].
 * `.where(key, value)|.where(filters)`: Filters events based on a single `key:value` pair or a set of `key:value` filters.
-* `.rollup(interval, limit)|.rollup(options)`: Rollup a `limit` amount of events to emit every `interval`. `interval` can also be a function to allow you to create varying intervals (see below).
-
-#### Rollup
-Here are two possible rollup examples:
-
-```js
-//
-// Rolls up 10,0000 events every 5 minute interval
-//
-var rollup =
-  reactor()
-    .rollup(1000 * 60 * 5, 10000)
-
-//
-// Scaling Rollup, rolls up 10,000 events every 5min interval for 1 hour,
-// then rolls up 10,000 events every 30mins
-//
-
-var scalingRollup =
-  reactor()
-    .rollup(function (period) {
-      if(period < 12) {
-        return 1000 * 60 * 5;
-      }
-      return 1000 * 60 * 30;
-    }, 10000)
-```
+* `.rollup(interval, limit)|.rollup(options)`: Rollup a `limit` amount of events to emit every `interval`. `interval` can also be a function to allow you to create varying intervals (see docs).
+* `.by(key|[key0, key1, key2..], reactor)`: Creates a new godot reactor stream
+  for each unique value for the key or keys passed into it.
 
 ## Producers
 Producers in Godot are **readable** [Stream][stream] instances which produce [Events](#events). Events will be emitted by a given Producer every `ttl` milliseconds.
