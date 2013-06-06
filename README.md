@@ -99,6 +99,7 @@ There are several core Reactor primitives available in `godot` which can be comp
 * `.around(reactor0, reactor1, ...)`: Pipe the same stream of data to independent reactor streams
 * `.console()|.console(formatFn)`: output the data with `console.dir` or do custom output with a `formatFn` that takes `data` as an argument
 * `.meta(key, reactor)`: assigns a value to `data.meta[key]` to the data coming through the stream based on the metric value of the `reactor` given as the second argument.
+* `.sum()`: Sum the `data.metric` value of the events as they come through the pipe stream.
 
 ## Producers
 Producers in Godot are **readable** [Stream][stream] instances which produce [Events](#events). Events will be emitted by a given Producer every `ttl` milliseconds.
