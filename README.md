@@ -101,6 +101,11 @@ There are several core Reactor primitives available in `godot` which can be comp
 * `.meta(key, reactor)`: assigns a value to `data.meta[key]` to the data coming through the stream based on the metric value of the `reactor` given as the second argument.
 * `.sum()`: Sum the `data.metric` value of the events as they come through the pipe stream.
 * `.over(ceiling)`: Emits an event when `data.metric` is > `ceiling`
+* `.within(min, max)`: Emits an event when `data.metric` is within the given inclusive range of {min, max}
+* `.movingAverage({average: 'type', window: window})`: Calculate various types of [moving averages][moving-average] over a defined event or time window.
+* `.windowSum(window): Calculates the sum of metrics over a given event or time window
+* `.redis(options, redisFn)`: Returns a redis client with data and callback to the redisFn to be used for redis operations to occur on each event.
+
 
 ## Producers
 Producers in Godot are **readable** [Stream][stream] instances which produce [Events](#events). Events will be emitted by a given Producer every `ttl` milliseconds.
@@ -121,3 +126,4 @@ All tests are written in [vows][vows] and can be run with [npm][npm]:
 [sms-options]: https://github.com/nodejitsu/godot/blob/master/lib/godot/reactor/sms.js
 [npm]: https://npmjs.org
 [vows]: http://vowsjs.org/
+[moving-average]: https://en.wikipedia.org/wiki/Moving_average
