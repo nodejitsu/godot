@@ -61,10 +61,10 @@ vows.describe('godot/reactor/by').addBatch({
         ),
       'by',
       12
-    ),
+    )
   }
 }).addBatch({
-  "Should emit pipe the events to the correct pipe-chains": function () {
+  "Should emit and pipe the events to the correct pipe-chains": function () {
     assert.equal(counts.service, 6);
     assert.equal(counts['service+ttl'], 12);
     assert.equal(counts['service+recombine'], 6);
