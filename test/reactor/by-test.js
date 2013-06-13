@@ -12,7 +12,8 @@ var assert = require('assert'),
 
 var counts = {
   service: 0,
-  'service+ttl': 0
+  'service+ttl': 0,
+  'service+recombine': 0
 };
 
 vows.describe('godot/reactor/by').addBatch({
@@ -40,11 +41,32 @@ vows.describe('godot/reactor/by').addBatch({
         ),
       'by',
       6
-    )
+    ),
+    "service, recombine": macros.shouldEmitDataSync(
+      godot.reactor()
+        .by(
+          'service',
+          godot.reactor().map(function (data, callback) {
+            counts['service+recombine']++;
+
+            //
+            // Calling `callback` twice will cause `data` event to be emitted
+            // twice on the `Map` stream, thus resulting in doubling each
+            // message.
+            //
+            callback(null, data);
+            callback(null, data);
+          }),
+          { recombine: true }
+        ),
+      'by',
+      12
+    ),
   }
 }).addBatch({
   "Should emit pipe the events to the correct pipe-chains": function () {
     assert.equal(counts.service, 6);
     assert.equal(counts['service+ttl'], 12);
+    assert.equal(counts['service+recombine'], 6);
   }
 }).export(module);
