@@ -20,7 +20,7 @@ vows.describe('godot/reactor').addBatch({
 
       fs.readdirSync(reactorDir)
         .filter(function (file) {
-          return !~core.indexOf(file);
+          return !~core.indexOf(file) && path.extname(file) === '.js';
         })
         .forEach(function (file) {
           var name   = file.replace('.js', ''),
