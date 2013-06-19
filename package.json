@@ -1,7 +1,7 @@
 {
   "name": "godot",
   "description": "Godot is a streaming real-time event processor written in node.js",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "author": "Nodejitsu Inc <info@nodejitsu.com>",
   "contributors": [
     {
@@ -25,7 +25,7 @@
     "sendgrid-web": "0.0.4",
     "telenode": "0.0.3",
     "utile": "0.1.7",
-    "window-stream": "~0.3.1",
+    "window-stream": "~0.4.0",
     "backoff": "2.1.x",
     "json-stream": "0.1.x"
   },
