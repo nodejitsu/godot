@@ -32,6 +32,13 @@ vows.describe('godot/reactor/where').addBatch({
         .where({ service: '*/health/heartbeat' }),
       'health',
       2
+    ),
+    "service, '*/health/heartbeat', {negate: true}": macros.shouldEmitDataSync(
+      godot
+        .reactor()
+        .where('service', '*/health/heartbeat', {negate: true}),
+      'health',
+      1
     )
   }
 }).export(module);
