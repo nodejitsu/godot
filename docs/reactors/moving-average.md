@@ -2,11 +2,13 @@
 
 basic api usage
 
-`.movingAverage({average: 'type', window: window})`
+`.movingAverage({average: 'type', duration: 'time (in ms)'|size: 'event #')`
 
 This little reactor is quite useful and is part of a separate module called
 [`window-stream`][window-stream]. It allows you to perform a [moving average][moving-average]
 of various [`types`](#types) over a specific `event-window` or `time-window`.
+The api you see above establishes an implicit `event-window` if you give it
+`size` or a `time-window` if you give it `duration`.
 
 <a href="#types"></a>
 ### Types
@@ -32,9 +34,7 @@ var graphMovingAverage =
     .where('service', 'http/start')
     .movingAverage({
       average: 'simple',
-      window: new windowStream.TimeWindow({
-        duration: 1000 * 60
-      })
+      duration: 1000 * 60
     })
     .graphite({
       url: 'plaintext://graphiteUrl.com',
