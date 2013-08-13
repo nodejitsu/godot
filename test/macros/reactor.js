@@ -194,6 +194,37 @@ exports.shouldNotExpireSync = function (reactor, fixture, ttl) {
     }
   };
 };
+//
+// ### function shouldErrorSync (reactor, fixture)
+// #### @reactor {Reactor} Reactor to assert against
+// #### @fixture {string} Test fixture to write data to
+// Test macro for asserting that if a reactor errors, it is
+// handled
+//
+exports.shouldError = function (reactor, fixture, timeout) {
+  return {
+    topic: function () {
+      var that = this,
+          source = new ReadWriteStream(),
+          stream = reactor.createStream(source),
+          error;
+
+      reactor.on('error', function (err) { error = err });
+
+      stream.on('data', function (data) { /*Data is emit through but we dont care*/ });
+      stream.on('end', function () {
+        setTimeout(function () {
+          that.callback(error, null);
+        }, timeout || 100);
+      });
+      helpers.writeFixture(source, fixture);
+    },
+    "should error": function (err, _) {
+      assert.instanceOf(err, Error);
+      assert.isNull(_);
+    }
+  };
+};
 
 //
 // ### function shouldErrorSync (reactor, fixture)
@@ -208,6 +239,7 @@ exports.shouldErrorSync = function (reactor, fixture) {
       var that = this,
           source = new ReadWriteStream(),
           stream = reactor.createStream(source);
+
       reactor.on('error', function (err) {that.callback(err, null)});
 
       stream.on('data', function (data) { that.callback(null, stream) });

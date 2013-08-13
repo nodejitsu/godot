@@ -1,0 +1,17 @@
+[
+  {
+    "service": "charlie/app/health/heartbeat",
+    "metric": 1,
+    "ttl": 50
+  },
+  {
+    "service": "charlie/app/health/memory",
+    "metric": 1,
+    "ttl": 50
+  },
+  {
+    "service": "charlie/app/health/heartbeat",
+    "metric": 1,
+    "ttl": 50
+  }
+]

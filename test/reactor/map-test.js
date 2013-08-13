@@ -33,12 +33,33 @@ vows.describe('godot/reactor/map').addBatch({
     'health',
     3
   ),
-  "Godot map error, correctly propagates to reactor instance": macros.shouldErrorSync(
+  "Godot map async, fire and forget async call": macros.shouldHaveMetric(
+    godot
+      .reactor()
+      .map(function (data, callback) {
+        process.nextTick(function () {
+          callback(null, data);
+        });
+      }, { passThrough: true }),
+    'fireForget',
+    1
+  ),
+  "Godot map error, regular async": macros.shouldErrorSync(
     godot
       .reactor()
       .map(function (data, callback) {
         callback(new Error('ERMAHGERD'), null);
       }),
     'health'
+  ),
+  "Godot map error, fire and forget": macros.shouldError(
+    godot
+      .reactor()
+      .map(function (data, callback) {
+        process.nextTick(function () {
+          callback(new Error('ohaithere'), null);
+        });
+      }, { passThrough: true }),
+    'fireForget'
   )
 }).export(module);
