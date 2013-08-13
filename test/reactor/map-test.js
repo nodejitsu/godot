@@ -33,7 +33,7 @@ vows.describe('godot/reactor/map').addBatch({
     'health',
     3
   ),
-  "Godot map error": macros.shouldErrorSync(
+  "Godot map error, correctly propagates to reactor instance": macros.shouldErrorSync(
     godot
       .reactor()
       .map(function (data, callback) {

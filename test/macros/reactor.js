@@ -208,9 +208,9 @@ exports.shouldErrorSync = function (reactor, fixture) {
       var that = this,
           source = new ReadWriteStream(),
           stream = reactor.createStream(source);
+      reactor.on('error', function (err) {that.callback(err, null)});
 
       stream.on('data', function (data) { that.callback(null, stream) });
-      stream.on('error', function (err) { that.callback(err, null) });
       stream.on('end', function () { that.callback(null, stream) });
       helpers.writeFixture(source, fixture);
     },
