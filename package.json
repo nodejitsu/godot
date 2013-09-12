@@ -26,8 +26,8 @@
     "telenode": "0.0.3",
     "utile": "0.2.x",
     "window-stream": "~0.4.0",
-    "backoff": "2.1.x",
-    "json-stream": "0.1.x"
+    "json-stream": "0.1.x",
+    "back": "0.1.x"
   },
   "devDependencies": {
     "optimist": "0.3.4",
@@ -36,7 +36,7 @@
   },
   "main": "./lib/godot",
   "engines": {
-    "node": "0.8.x"
+    "node": "0.10.x || 0.8.x"
   },
   "scripts": {
     "test": "vows --spec -i"
