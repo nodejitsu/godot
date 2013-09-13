@@ -28,7 +28,7 @@ vows.describe('godot/net/client-reconnect').addBatch({
         });
 
         client.connect(port);
-        client.on('error', function (err) {
+        client.once('error', function (err) {
           callback(null, err);
         });
       },
@@ -56,7 +56,7 @@ vows.describe('godot/net/client-reconnect').addBatch({
         });
 
         client.connect(port);
-        client.on('error', function (err) {
+        client.once('error', function (err) {
           callback(null, err, (new Date() - d));
         });
       },
