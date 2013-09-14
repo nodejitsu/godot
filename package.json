@@ -26,7 +26,7 @@
     "telenode": "0.0.3",
     "utile": "0.2.x",
     "window-stream": "~0.4.0",
-    "json-stream": "0.1.x",
+    "json-stream": "0.2.x",
     "back": "0.1.x"
   },
   "devDependencies": {
