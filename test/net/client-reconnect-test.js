@@ -28,7 +28,7 @@ vows.describe('godot/net/client-reconnect').addBatch({
         });
 
         client.connect(port);
-        client.on('error', function (err) {
+        client.once('error', function (err) {
           callback(null, err);
         });
       },
@@ -49,15 +49,14 @@ vows.describe('godot/net/client-reconnect').addBatch({
             godot.producer(helpers.fixtures['producer-test'])
           ],
           reconnect: {
-            type: 'exponential',
-            maxTries: 2,
-            initialDelay: 100,
+            retries: 2,
+            minDelay: 100,
             maxDelay: 300
           }
         });
 
         client.connect(port);
-        client.on('error', function (err) {
+        client.once('error', function (err) {
           callback(null, err, (new Date() - d));
         });
       },
@@ -66,7 +65,7 @@ vows.describe('godot/net/client-reconnect').addBatch({
         assert.instanceOf(err, Error);
       },
       "should take appropiate amount of time": function (_, err, t) {
-        assert(t >= 300);
+        assert(t >= 200);
       }
     },
     "with backoff and server eventually coming up": {
@@ -81,9 +80,8 @@ vows.describe('godot/net/client-reconnect').addBatch({
             godot.producer(helpers.fixtures['producer-test'])
           ],
           reconnect: {
-            type: 'exponential',
-            maxTries: 2,
-            initialDelay: 100,
+            retries: 2,
+            minDelay: 100,
             maxDelay: 300
           }
         });

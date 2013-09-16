@@ -209,7 +209,10 @@ exports.shouldError = function (reactor, fixture, timeout) {
           stream = reactor.createStream(source),
           error;
 
-      reactor.on('error', function (err) { error = err });
+      reactor.once('reactor:error', function (err) {
+        error = err;
+        stream.end();
+      });
 
       stream.on('data', function (data) { /*Data is emit through but we dont care*/ });
       stream.on('end', function () {
@@ -237,18 +240,19 @@ exports.shouldErrorSync = function (reactor, fixture) {
   return {
     topic: function () {
       var that = this,
-          source = new ReadWriteStream(),
-          stream = reactor.createStream(source);
+          source = new ReadWriteStream();
+          stream = this.stream = reactor.createStream(source);
 
-      reactor.on('error', function (err) {that.callback(err, null)});
+      reactor.once('reactor:error', function (err) {that.callback(err, null)});
 
-      stream.on('data', function (data) { that.callback(null, stream) });
-      stream.on('end', function () { that.callback(null, stream) });
+      stream.on('data', function (data) {  });
+      stream.on('end', function () {  });
       helpers.writeFixture(source, fixture);
     },
     "should error": function (err, _) {
       assert.instanceOf(err, Error);
       assert.isNull(_);
+      this.stream.end();
     }
   };
 };
