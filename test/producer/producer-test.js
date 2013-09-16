@@ -44,19 +44,19 @@ vows.describe('godot/producer').addBatch({
         topic: function () {
           this.now = new Date();
           this.values = helpers.fixtures['producer-test'];
-          
+
           return godot.producer(this.values);
         },
         "should set all values": function (producer) {
           var values = this.values;
-          
+
           Object.keys(values).forEach(function (key) {
             assert.equal(producer.values[key], values[key]);
           });
         },
         "should set the ttlId": function (producer) {
           assert.isObject(producer.ttlId);
-          assert.isFunction(producer.ttlId.ontimeout);
+          assert.isFunction(producer.ttlId.ontimeout || producer.ttlId._onTimeout);
         },
         "setting invalid data-types": macros.shouldThrowOnInvalidValues(),
         "setting valid data-types": macros.shouldSetValues(),
@@ -71,7 +71,7 @@ vows.describe('godot/producer').addBatch({
             assert.isTrue((new Date(data.time) - this.now) >= values.ttl);
             Object.keys(values).forEach(function (key) {
               assert.equal(data[key], values[key]);
-            });         
+            });
           }
         }
       }

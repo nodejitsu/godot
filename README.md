@@ -51,12 +51,11 @@ Here is a simple example of a [Reactor](#reactors) server that will send an emai
       })
     ],
     //
-    // Add Reconnect logic that uses node-backoff
+    // Add Reconnect logic that uses `back`
     //
     reconnect: {
-      type: 'exponential',
-      maxTries: 2,
-      initialDelay: 100,
+      retries: 2,
+      minDelay: 100,
       maxDelay: 300
     }
   }).connect(1337);
