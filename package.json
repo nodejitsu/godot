@@ -22,7 +22,7 @@
     "ip": "0.0.x",
     "node-uuid": "1.4.0",
     "redis": "0.8.4",
-    "sendgrid-web": "0.0.4",
+    "sendgrid-web": "0.0.5",
     "telenode": "0.0.3",
     "utile": "0.2.x",
     "window-stream": "~0.4.0",
