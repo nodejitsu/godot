@@ -1,5 +1,7 @@
 # godot
 
+![](https://i.cloudup.com/zCF6jLRpLf.png)
+
 Godot is a streaming real-time event processor based on [Riemann][riemann] written in Node.js
 
 * [Usage](#usage)
@@ -144,6 +146,9 @@ All tests are written in [vows][vows] and can be run with [npm][npm]:
 ```
 
 #### Copyright (C) 2012. Nodejitsu Inc.
+#### License: MIT
+
+_Sound Wave designed by Alessandro Suraci from the thenounproject.com_
 
 [riemann]: http://aphyr.github.com/riemann/
 [stream]: http://nodejs.org/api/stream.html
