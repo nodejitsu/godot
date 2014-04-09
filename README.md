@@ -14,7 +14,7 @@ Godot is a streaming real-time event processor based on [Riemann][riemann] writt
 Here is a simple example of a [Reactor](#reactors) server that will send an email to `user@host.com` if the [Producer](#producer) server for `app.server` fails to send a heartbeat after 60 seconds.
 
 ``` js
-  var godot = require('../lib/godot');
+  var godot = require('godot');
 
   //
   // Reactor server which will email `user@host.com`
@@ -27,7 +27,12 @@ Here is a simple example of a [Reactor](#reactors) server that will send an emai
     //
     type: 'udp',
     reactors: [
-      godot.reactor()
+      function (socket) {
+        socket
+          .pipe(godot.where('service', '*/health/heartbeat'))
+          .pipe(godot.expire(1000 * 60))
+          .pipe(godot.email({ to: 'user@host.com' }))
+      }
         .where('service', '*/health/heartbeat')
         .expire(1000 * 60)
         .email({ to: 'user@host.com' })
@@ -79,7 +84,9 @@ Similar to [Riemann][riemann], events in `godot` are simply JSON sent over UDP o
 ```
 
 ## Reactors
-Reactors in Godot are **readable and writable** [Stream][stream] instances which consume [Events](#events) and produce actions or aggregate data flow.
+Reactors in Godot are **readable and writable** [Stream][stream] instances which consume [Events](#events) and produce actions or aggregate data flow. In the example above you may see that when we define the array of reactors by wrapping it with a simple function. This function has a single argument that represents the data coming over the wire. This data can be piped to any `godot` stream or any Transform stream you find on NPM!
+
+*Note* Reactors are currently still streams1 streams (so they do not handle backpressure) but this will begin to change in the near future for node `0.12.x`. (Performance reasons)
 
 ### Primitives
 
@@ -98,26 +105,34 @@ There are several core Reactor primitives available in `godot` which can be comp
 Here are two possible rollup examples:
 
 ```js
+
+var godot = require('godot');
+
 //
 // Rolls up 10,0000 events every 5 minute interval
+// then sends them in an email
 //
-var rollup =
-  reactor()
-    .rollup(1000 * 60 * 5, 10000)
+var rollup = function (socket) {
+  socket
+    .pipe(godot.rollup(1000 * 60 * 5, 10000))
+    .pipe(godot.email({ to: 'me@nodejitsu.com' }))
+}
 
 //
 // Scaling Rollup, rolls up 10,000 events every 5min interval for 1 hour,
-// then rolls up 10,000 events every 30mins
+// then rolls up 10,000 events every 30mins and emails them out
 //
 
-var scalingRollup =
-  reactor()
-    .rollup(function (period) {
+var scalingRollup = function (socket) {
+  socket
+    .pipe(godot.rollup(function (period) {
       if(period < 12) {
         return 1000 * 60 * 5;
       }
       return 1000 * 60 * 30;
-    }, 10000)
+    }, 10000))
+    .pipe(godot.email({ to: 'me@nodejitsu.com' }))
+}
 ```
 
 ## Producers
