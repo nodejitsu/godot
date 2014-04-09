@@ -30,7 +30,7 @@ Here is a simple example of a [Reactor](#reactors) server that will send an emai
     type: 'udp',
     reactors: [
       function (socket) {
-        socket
+        return socket
           .pipe(godot.where('service', '*/health/heartbeat'))
           .pipe(godot.expire(1000 * 60))
           .pipe(godot.email({ to: 'user@host.com' }))
@@ -112,7 +112,7 @@ var godot = require('godot');
 // then sends them in an email
 //
 var rollup = function (socket) {
-  socket
+  return socket
     .pipe(godot.rollup(1000 * 60 * 5, 10000))
     .pipe(godot.email({ to: 'me@nodejitsu.com' }))
 }
@@ -123,7 +123,7 @@ var rollup = function (socket) {
 //
 
 var scalingRollup = function (socket) {
-  socket
+  return socket
     .pipe(godot.rollup(function (period) {
       if(period < 12) {
         return 1000 * 60 * 5;
