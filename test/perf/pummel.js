@@ -41,6 +41,12 @@ var optimist = require('optimist')
     number: true,
     default: 10
   })
+  .option('multiplex', {
+    description: 'does server multiplex',
+    alias: 'm',
+    boolean: true,
+    default: false
+  })
   .option('ttl', {
     description: 'ttl duration of messages',
     number: true,
@@ -69,6 +75,7 @@ async.series({
     type: argv.over,
     port: argv.port,
     duration: argv.interval,
+    multiplex: argv.multiplex,
     processes: 1
   }),
   producers: async.apply(helpers.run, 'producer', {

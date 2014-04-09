@@ -15,18 +15,20 @@ function start(options) {
   helpers.net.createServer({
     type:      options.type,
     port:      options.port,
-    multiplex: false,
+    multiplex: options.multiplex || false,
     reactors:  [
-      godot.reactor()
-        .count((options.interval || options.duration) * 1000)
-        .console(function (data) {
-          console.log([
-            '',
-            'Received:',
-            '  ' + data.metric + ' total messages',
-            '  ' + data.metric/options.duration + ' per second'
-          ].join('\n'));
-        })
+      function (socket) {
+        socket
+          .pipe(godot.count((options.interval || options.duration) * 1000))
+          .pipe(godot.console(function (data) {
+            console.log([
+              '',
+              'Received:',
+              '  ' + data.metric + ' total messages',
+              '  ' + data.metric/options.duration + ' per second'
+            ].join('\n'));
+          }))
+      }
     ]
   }, function (err) {
     return err
