@@ -33,9 +33,6 @@ Here is a simple example of a [Reactor](#reactors) server that will send an emai
           .pipe(godot.expire(1000 * 60))
           .pipe(godot.email({ to: 'user@host.com' }))
       }
-        .where('service', '*/health/heartbeat')
-        .expire(1000 * 60)
-        .email({ to: 'user@host.com' })
     ]
   }).listen(1337);
 
