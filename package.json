@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "back": "0.1.x",
+    "clone": "~0.1.18",
     "graphite": "0.0.6",
     "ip": "0.0.x",
     "json-stream": "0.2.x",
