@@ -1,7 +1,7 @@
 /*
  * producer.js: Test macros for godot producers.
  *
- * (C) 2012, Nodejitsu Inc.
+ * (C) 2012, Charlie Robbins, Jarrett Cruger, and the Contributors.
  *
  */
 
@@ -27,16 +27,16 @@ exports.shouldThrowOnInvalidValues = function () {
         'number': function () { return '0' },
         'array':  function () { return 0 }
       }
-      
+
       context[key] = function (producer) {
         var type    = Producer.prototype.types[key],
             invalid = factory[type]();
-            
+
         assert.throws(function () {
           producer[key](invalid)
         }, 'Type mismatch: ' + key + ' must be a ' + type);
       };
-      
+
       return context;
     }, {});
 };
@@ -58,7 +58,7 @@ exports.shouldSetValues = function () {
         value = this.values[key];
         assert.equal(producer[key](value), producer)
       };
-  
+
       return context;
     }, {});
 };

@@ -145,7 +145,7 @@ All tests are written in [vows][vows] and can be run with [npm][npm]:
   npm test
 ```
 
-#### Copyright (C) 2012. Nodejitsu Inc.
+#### Copyright (C) 2012. Charlie Robbins, Jarrett Cruger, and the Contributors.
 #### License: MIT
 
 _Sound Wave designed by Alessandro Suraci from the thenounproject.com_

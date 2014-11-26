@@ -1,7 +1,7 @@
 /*
  * around-test.js: Tests for the Around reactor stream.
  *
- * (C) 2012, Nodejitsu Inc.
+ * (C) 2012, Charlie Robbins, Jarrett Cruger, and the Contributors.
  *
  */
 
@@ -15,7 +15,7 @@ var counts = [0, 0, 0],
     under  = 0;
 
 //
-// Helper function to increment the 
+// Helper function to increment the
 // appropriate count.
 //
 function increment(i) {

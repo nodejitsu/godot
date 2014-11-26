@@ -1,7 +1,7 @@
 /*
  * client.js :: A client example showing 2 generic producers
  *
- * (C) 2013 Nodejitsu Inc.
+ * (C) 2013, Charlie Robbins, Jarrett Cruger, and the Contributors.
  *
  */
 

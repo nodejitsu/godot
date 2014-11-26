@@ -1,7 +1,7 @@
 /*
  * sms.js: Mock SMS client for godot tests.
  *
- * (C) 2012, Nodejitsu Inc.
+ * (C) 2012, Charlie Robbins, Jarrett Cruger, and the Contributors.
  *
  */
 

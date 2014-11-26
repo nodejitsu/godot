@@ -1,7 +1,7 @@
 /*
  * producer.js: Starts a single producer with options passed over child IPC.
  *
- * (C) 2012, Nodejitsu Inc.
+ * (C) 2012, Charlie Robbins, Jarrett Cruger, and the Contributors.
  *
  */
 

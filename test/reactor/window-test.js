@@ -1,7 +1,7 @@
 /*
  * window-test.js: Tests for the *Window and Combine reactor streams.
  *
- * (C) 2012, Nodejitsu Inc.
+ * (C) 2012, Charlie Robbins, Jarrett Cruger, and the Contributors.
  *
  */
 

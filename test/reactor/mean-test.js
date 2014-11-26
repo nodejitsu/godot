@@ -1,7 +1,7 @@
 /*
  * mean-test.js: Tests for the Mean reactor stream.
  *
- * (C) 2012, Nodejitsu Inc.
+ * (C) 2012, Charlie Robbins, Jarrett Cruger, and the Contributors.
  *
  */
 

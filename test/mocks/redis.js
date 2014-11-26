@@ -1,7 +1,7 @@
 /*
  * redis.js: Mock Redis client for godot tests.
  *
- * (C) 2013, Nodejitsu Inc.
+ * (C) 2013, Charlie Robbins, Jarrett Cruger, and the Contributors.
  *
  */
 

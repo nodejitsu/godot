@@ -1,7 +1,7 @@
 /*
  * meta-test.js: Tests for the Meta reactor stream.
  *
- * (C) 2012, Nodejitsu Inc.
+ * (C) 2012, Charlie Robbins, Jarrett Cruger, and the Contributors.
  *
  */
 
@@ -44,7 +44,7 @@ function shouldAddSimpleAverage(timeSeries, assertFn) {
         if (assertFn) {
           assertFn(data);
         }
-        
+
         avg = data.meta.avg;
         assert.equal(num, di);
         assert.equal(avg, godot.math.mean(set.toArray().map(function (n) {

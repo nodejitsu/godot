@@ -2,12 +2,8 @@
   "name": "godot",
   "description": "Godot is a streaming real-time event processor written in node.js",
   "version": "1.0.0-dev2",
-  "author": "Nodejitsu Inc <info@nodejitsu.com>",
+  "author": "Charlie Robbins <charlie@nodejitsu.com>",
   "contributors": [
-    {
-      "name": "Charlie Robbins",
-      "email": "charlie@nodejitsu.com"
-    },
     {
       "name": "Jarrett Cruger",
       "email": "jarrett@nodejitsu.com"
@@ -18,23 +14,23 @@
     "url": "https://github.com/nodejitsu/godot.git"
   },
   "dependencies": {
-    "back": "0.1.x",
+    "back": "~0.2.0",
     "clone": "~0.1.18",
-    "graphite": "0.0.6",
-    "ip": "0.0.x",
-    "json-stream": "0.2.x",
-    "node-uuid": "1.4.0",
-    "readable-stream": "^1.0.26-4",
-    "redis": "0.8.4",
-    "sendgrid-web": "0.0.5",
-    "telenode": "0.0.3",
-    "utile": "0.2.x",
-    "window-stream": "~0.5.0"
+    "graphite": "~0.0.6",
+    "ip": "~0.3.2",
+    "json-stream": "~0.2.2",
+    "node-uuid": "~1.4.1",
+    "readable-stream": "~1.0.33",
+    "redis": "~0.12.1",
+    "sendgrid-web": "~0.0.5",
+    "telenode": "~0.0.3",
+    "utile": "~0.2.1",
+    "window-stream": "~0.7.4"
   },
   "devDependencies": {
-    "optimist": "0.3.4",
-    "r...e": "0.2.x",
-    "vows": "0.7.0"
+    "optimist": "~0.6.0",
+    "r...e": "~0.2.0",
+    "vows": "~0.8.1"
   },
   "main": "./lib/godot",
   "engines": {

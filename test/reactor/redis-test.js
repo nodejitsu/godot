@@ -1,7 +1,7 @@
 /*
  * redis-test.js: Tests for the Redis reactor stream
  *
- * (C) 2013, Nodejitsu Inc.
+ * (C) 2013, Charlie Robbins, Jarrett Cruger, and the Contributors.
  *
  */
 

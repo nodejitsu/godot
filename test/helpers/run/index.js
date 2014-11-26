@@ -1,7 +1,7 @@
 /*
  * index.js: Top-level include for starting test processes.
  *
- * (C) 2012, Nodejitsu Inc.
+ * (C) 2012, Charlie Robbins, Jarrett Cruger, and the Contributors.
  *
  */
 
@@ -12,13 +12,13 @@ var fork = require('child_process').fork,
 
 module.exports = function (type, options, callback) {
   var target = path.join(__dirname, type + '.js');
-  
+
   async.map(
     range(1, options.processes).toArray(),
     function startOne(index, next) {
       console.log(['Starting', type, index].join(' '));
       var child = fork(target);
-      
+
       child.on('message', function (msg) {
         return msg.error
           ? next(msg.error)

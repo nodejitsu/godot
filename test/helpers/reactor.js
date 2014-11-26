@@ -1,10 +1,10 @@
 /*
  * reactor.js: Test helpers for working with reactors.
  *
- * (C) 2012, Nodejitsu Inc.
+ * (C) 2012, Charlie Robbins, Jarrett Cruger, and the Contributors.
  *
  */
- 
+
 var async = require('utile').async,
     helpers = require('./index'),
     fixtures = helpers.fixtures;

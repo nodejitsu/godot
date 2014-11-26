@@ -1,7 +1,7 @@
 /*
  * math-test.js: Basic tests for the godot `math` module.
  *
- * (C) 2012, Nodejitsu Inc.
+ * (C) 2012, Charlie Robbins, Jarrett Cruger, and the Contributors.
  *
  */
 

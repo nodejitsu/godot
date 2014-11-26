@@ -1,7 +1,7 @@
 /*
  * client-test.js: Basic tests for the net Client module.
  *
- * (C) 2012, Nodejitsu Inc.
+ * (C) 2012, Charlie Robbins, Jarrett Cruger, and the Contributors.
  *
  */
 

@@ -1,7 +1,7 @@
 /*
  * forward-test.js: Tests for the Forward rector stream.
  *
- * (C) 2012, Nodejitsu Inc.
+ * (C) 2012, Charlie Robbins, Jarrett Cruger, and the Contributors.
  *
  */
 
@@ -10,7 +10,7 @@ var assert = require('assert'),
     godot = require('../../lib/godot'),
     ReadWriteStream = require('../../lib/godot/common/read-write-stream'),
     helpers = require('../helpers');
-    
+
 vows.describe('godot/reactor/forward').addBatch({
   "Godot forward": {
     topic: function () {
@@ -19,14 +19,14 @@ vows.describe('godot/reactor/forward').addBatch({
           that = this,
           stream,
           server;
-      
+
       reactors.local = godot.reactor()
         .forward({
           type: 'tcp',
           host: 'localhost',
           port: 3371
         });
-        
+
       reactors.remote = godot.reactor('remote')
         .where('service', '*/health');
 
@@ -49,7 +49,7 @@ vows.describe('godot/reactor/forward').addBatch({
             .on('data', function (data) {
               that.data = that.data || [];
               that.data.push(data);
-              
+
               if (that.data.length === 3) {
                 that.callback(null);
               }
@@ -60,7 +60,7 @@ vows.describe('godot/reactor/forward').addBatch({
           //
           helpers.reactor.writeFixture(source, 'health');
         }, 500);
-      });      
+      });
     },
     "should forward the events to the remote server": function (err, _) {
       assert.isNull(err);

@@ -1,7 +1,7 @@
 /*
  * reactor-test.js: Basic tests for the reactor module.
  *
- * (C) 2012, Nodejitsu Inc.
+ * (C) 2012, Charlie Robbins, Jarrett Cruger, and the Contributors.
  *
  */
 
