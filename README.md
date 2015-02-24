@@ -1,5 +1,7 @@
 # godot
 
+[![build status](https://secure.travis-ci.org/nodejitsu/godot.svg?branch=patch-branch)](http://travis-ci.org/nodejitsu/godot)
+
 ![](https://i.cloudup.com/zCF6jLRpLf.png)
 
 Godot is a streaming real-time event processor based on [Riemann][riemann] written in Node.js
