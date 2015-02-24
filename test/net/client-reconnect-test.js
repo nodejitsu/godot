@@ -7,6 +7,7 @@
 
 var assert = require('assert'),
     vows = require('vows'),
+    once = require('one-time'),
     async = require('utile').async,
     godot = require('../../lib/godot'),
     helpers = require('../helpers'),
@@ -17,7 +18,7 @@ vows.describe('godot/net/client-reconnect').addBatch({
   "Godot client": {
     "with no backoff and no server": {
       topic: function () {
-        var callback = this.callback,
+        var callback = once(this.callback),
             port = helpers.nextPort;
 
         var client = godot.createClient({
@@ -28,7 +29,7 @@ vows.describe('godot/net/client-reconnect').addBatch({
         });
 
         client.connect(port);
-        client.once('error', function (err) {
+        client.on('error', function (err) {
           callback(null, err);
         });
       },
@@ -39,7 +40,7 @@ vows.describe('godot/net/client-reconnect').addBatch({
     },
     "with backoff and no server": {
       topic: function () {
-        var callback = this.callback,
+        var callback = once(this.callback),
             port = helpers.nextPort,
             d = new Date();
 
@@ -56,7 +57,7 @@ vows.describe('godot/net/client-reconnect').addBatch({
         });
 
         client.connect(port);
-        client.once('error', function (err) {
+        client.on('error', function (err) {
           callback(null, err, (new Date() - d));
         });
       },
@@ -70,7 +71,7 @@ vows.describe('godot/net/client-reconnect').addBatch({
     },
     "with backoff and server eventually coming up": {
       topic: function () {
-        var callback = this.callback,
+        var callback = once(this.callback),
             port = helpers.nextPort,
             d = new Date();
 
@@ -80,7 +81,7 @@ vows.describe('godot/net/client-reconnect').addBatch({
             godot.producer(helpers.fixtures['producer-test'])
           ],
           reconnect: {
-            retries: 2,
+            retries: 3,
             minDelay: 100,
             maxDelay: 300
           }

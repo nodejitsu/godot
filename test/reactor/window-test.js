@@ -52,7 +52,7 @@ vows.describe('godot/reactor/window').addBatch({
       helpers.timeSeries({
         service: 'timewindow/test',
         metric: 1
-      }, 2000, 100),
+      }, 1000, 100),
       10
     ),
     "{ fixed: false, duration: 1000 }": macros.shouldEmitData(

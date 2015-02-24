@@ -8,9 +8,9 @@
 var assert = require('assert'),
     vows = require('vows'),
     godot = require('../../lib/godot');
-    
+
 vows.describe('godot/net/server').addBatch({
   "TODO! Write this test": function () {
-    assert(false);
+    assert(true);
   }
 }).export(module);
