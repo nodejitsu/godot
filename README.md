@@ -1,5 +1,7 @@
 # godot
 
+![](https://i.cloudup.com/zCF6jLRpLf.png)
+
 Godot is a streaming real-time event processor based on [Riemann][riemann] written in Node.js
 
 * [Usage](#usage)
