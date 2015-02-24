@@ -1,0 +1,20 @@
+language: node_js
+node_js:
+  - "0.10"
+  - "0.11"
+  - "0.12"
+  - "iojs"
+
+matrix:
+  fast_finish: true
+  allow_failures:
+    - node_js: "0.11"
+    - node_js: "0.12"
+    - node_js: "iojs"
+
+notifications:
+  irc:
+    channels:
+      - "irc.freenode.org#nodejitsu"
+    on_success: change
+    on_failure: change
