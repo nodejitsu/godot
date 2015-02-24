@@ -38,7 +38,7 @@
   },
   "main": "./lib/godot",
   "engines": {
-    "node": "0.10.x"
+    "node": "0.12.x || 0.10.x"
   },
   "scripts": {
     "test": "vows --spec -i"
